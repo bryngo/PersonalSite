@@ -65,7 +65,7 @@ MongoClient.connect(url, function(err, client) {
     clearChest(db, function() {
         insertKey(db, function() {
             findAllKeys(db, function() {
-                db.close();
+                client.close();
             });
         });
     });
