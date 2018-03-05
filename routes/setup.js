@@ -22,7 +22,7 @@ var insertKey = function(db, callback) {
 
     // Insert a key
     collection.insertMany([
-            { key_type: "IG_access_token", key: "4759956499.f7c2390.12782238b04a4e22a6b6efd0ba161669" }
+            { key_type: "IG_access_token", key: "API_KEY_VALUE" }
     ], function(err, result) {
         assert.equal(err, null);
         assert.equal(1, result.result.n);
