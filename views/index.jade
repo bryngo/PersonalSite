@@ -1,0 +1,238 @@
+doctype html
+//
+  Story by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+html
+    head
+
+
+        title Bryan Ngo
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        link(rel='stylesheet', href='css/main.css')
+        script(src='js/instafeed.min.js')
+        script(src='js/super_secret.js')
+
+        //script(type='text/javascript').
+        //    var userFeed = new Instafeed({
+        //        get: 'user',
+        //        userId: '4759956499',
+        //        limit: 15,
+        //        accessToken: "#{keys[0]['key']}",
+        //        resolution: 'standard_resolution',
+        //        template:
+        //        '<article>' +
+        //        '<a href="{{link}}" class="image adjust">' +
+        //        '<img class="adjust" src="{{image}}" alt="" />' +
+        //        '</a>' +
+        //        '<div class="caption">' +
+        //        '<h3><i class="fa fa-heart"></i></h3>' +
+        //        '<p>{{likes}}</p>' +
+        //        '<ul class="actions">' +
+        //        '<li><span class="button small">Details</span></li>' +
+        //        '</ul>' +
+        //        '</div>' +
+        //        '</article>'
+        //    });
+        //    userFeed.run();
+    body
+        // Wrapper
+        #wrapper.divided
+            // One
+            section.banner.style1.orient-left.content-align-left.image-position-center.fullscreen.onload-image-fade-in.onload-content-fade-right
+                .content
+                    h1 Hi! I'm Bryan.
+                    p.major
+                        | Incoming Software Engineering Intern '18 @
+                        a(href='https://www.coursehero.com') Course Hero
+                        |  and an undergraduate Computer Science & Engineering Major, Statistics Minor @
+                        a(href='https://www.ucdavis.edu') UC Davis
+                        | .
+                    ul.actions.vertical
+                        li
+                            a.button.big.wide.smooth-scroll-middle(href='#first') Get to know me
+                    ul.icons
+                        li
+                            a.icon.style2.fa-linkedin(href='https://www.linkedin.com/in/bryngo/', target='_blank')
+                                span.label Linkedin
+                        li
+                            a.icon.style2.fa-github(href='https://github.com/bryngo', target='_blank')
+                                span.label Github
+                        li
+                            a.icon.style2.fa-file(href='#', target='_blank')
+                                span.label Resume
+                        li
+                            a.icon.style2.fa-instagram(href='https://www.instagram.com/bryngo.jpg/', target='_blank')
+                                span.label Instagram
+                        li
+                            a.icon.style2.fa-twitter(href='https://twitter.com/BubblyBryan', target='_blank')
+                                span.label Twitter
+                        li
+                            a.icon.style2.fa-facebook(href='https://www.facebook.com/bryan.ngo.7', target='_blank')
+                                span.label Facebook
+                .image
+                    img(src='images/banner.jpg', alt='')
+            // Two
+            section#first.spotlight.style1.orient-right.invert.content-align-left.image-position-center.onscroll-image-fade-in
+                .content
+                    h2 Projects & More
+                    p
+                        | I took my first
+                        a(href='http://www.cs.ucdavis.edu/blog/ecs-30-programming-problem-solving/') computer science course
+                        |  after coming to UCD. 3 years later, and I've learned a lot. Continue on to learn about my experiences, projects, and much more!
+                    ul.actions.vertical
+                        li
+                            a.button(href='#') ./read.sh
+                .image
+                    img(src='images/spotlight01.jpg', alt='')
+            // Three
+            section.spotlight.style1.orient-left.content-align-left.image-position-center.onscroll-image-fade-in
+                .content
+                    h2 Photography
+                    p
+                        | When I'm not programming, I'm taking pictures. This is my creative outlet, and I want to keep investing my time into it (I recommend everyone to have a creative outlet). Check out some of my work.
+                    ul.actions.vertical
+                        li
+                            a.button(href='#') TFP?
+                .image
+                    img(src='images/spotlight02.jpg', alt='')
+            // Four
+            section.spotlight.style1.orient-right.invert.content-align-left.image-position-center.onscroll-image-fade-in
+                .content
+                    h2 Blog
+                    p Here, you'll find my thoughts on life, food, and more!
+                    ul.actions.vertical
+                        li
+                            a.button(href='#')
+                                i.icon.fas.fa-male.fa-2x
+                                i.icon.fas.fa-spoon.fa-2x
+                                i.icon.fas.fa-play.fa-2x
+                .image
+                    img(src='images/spotlight03.jpg', alt='')
+            // Five: IG Feed
+            section.wrapper.style1.align-center
+                .inner
+                    h2 My Latest Shots
+                    ul.icons
+                        li
+                            a.icon.style2.fa-instagram(href='https://www.instagram.com/bryngo.jpg/', target='_blank')
+                                span.label Instagram
+                    hr
+                // Gallery
+                #instafeed.gallery.style1.small.lightbox.onscroll-fade-in
+
+            // Six
+            section.wrapper.style1.align-center
+                .inner
+                    h2 Ipsum sed consequat
+                    p
+                        | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id ante sed ex pharetra lacinia sit amet vel massa. Donec facilisis laoreet nulla eu bibendum. Donec ut ex risus. Fusce lorem lectus, pharetra pretium massa et, hendrerit vestibulum odio lorem ipsum.
+                    .items.style1.medium.onscroll-fade-in
+                        section
+                            span.icon.style2.major.fa-diamond
+                            h3 Lorem
+                            p
+                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.
+                        section
+                            span.icon.style2.major.fa-save
+                            h3 Ipsum
+                            p
+                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.
+                        section
+                            span.icon.style2.major.fa-bar-chart
+                            h3 Dolor
+                            p
+                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.
+                        section
+                            span.icon.style2.major.fa-wifi
+                            h3 Amet
+                            p
+                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.
+                        section
+                            span.icon.style2.major.fa-cog
+                            h3 Magna
+                            p
+                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.
+                        section
+                            span.icon.style2.major.fa-paper-plane
+                            h3 Tempus
+                            p
+                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.
+                        section
+                            span.icon.style2.major.fa-desktop
+                            h3 Aliquam
+                            p
+                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.
+                        section
+                            span.icon.style2.major.fa-refresh
+                            h3 Elit
+                            p
+                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.
+                        section
+                            span.icon.style2.major.fa-hashtag
+                            h3 Morbi
+                            p
+                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.
+                        section
+                            span.icon.style2.major.fa-bolt
+                            h3 Turpis
+                            p
+                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.
+                        section
+                            span.icon.style2.major.fa-envelope
+                            h3 Ultrices
+                            p
+                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.
+                        section
+                            span.icon.style2.major.fa-leaf
+                            h3 Risus
+                            p
+                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.
+            // Seven
+            section.wrapper.style1.align-center
+                .inner.medium
+                    h2 Get in touch
+                    form(method='post', action='#')
+                        .field.half.first
+                            label(for='name') Name
+                            input#name(type='text', name='name', value='')
+                        .field.half
+                            label(for='email') Email
+                            input#email(type='email', name='email', value='')
+                        .field
+                            label(for='message') Message
+                            textarea#message(name='message', rows='6')
+                        ul.actions
+                            li
+                                input#submit(type='submit', name='submit', value='Send Message')
+            // Footer
+            footer.wrapper.style1.align-center
+                .inner
+                    ul.icons
+                        li
+                            a.icon.style2.fa-linkedin(href='https://www.linkedin.com/in/bryngo/', target='_blank')
+                                span.label Linkedin
+                        li
+                            a.icon.style2.fa-github(href='https://github.com/bryngo', target='_blank')
+                                span.label Github
+                        li
+                            a.icon.style2.fa-file(href='#', target='_blank')
+                                span.label Resume
+                        li
+                            a.icon.style2.fa-instagram(href='https://www.instagram.com/bryngo.jpg/', target='_blank')
+                                span.label Instagram
+                        li
+                            a.icon.style2.fa-twitter(href='https://twitter.com/BubblyBryan', target='_blank')
+                                span.label Twitter
+                        li
+                            a.icon.style2.fa-facebook(href='https://www.facebook.com/bryan.ngo.7', target='_blank')
+                                span.label Facebook
+        // Scripts
+        script(src='js/jquery.min.js')
+        script(src='js/jquery.scrollex.min.js')
+        script(src='js/jquery.scrolly.min.js')
+        script(src='js/skel.min.js')
+        script(src='js/util.js')
+        script(src='js/main.js')
+        script(src='js/instafeed.min.js')
