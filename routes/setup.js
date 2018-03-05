@@ -12,7 +12,7 @@ var MongoClient = require('mongodb').MongoClient;
 assert = require('assert');
 
 // Connection url
-var url = 'mongodb://localhost:27017/Lightning';
+var url = 'mongodb://localhost';
 
 
 // Set up documents
@@ -58,7 +58,9 @@ var findAllKeys = function(db, callback) {
 
 
 // initial set up.`node setup.js` to run
-MongoClient.connect(url, function(err, db) {
+MongoClient.connect(url, function(err, client) {
+
+    var db = client.db('Lightning');
 
     clearChest(db, function() {
         insertKey(db, function() {
