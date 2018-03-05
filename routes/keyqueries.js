@@ -6,7 +6,7 @@ var MongoClient = require('mongodb').MongoClient;
 assert = require('assert');
 
 // Connection url
-var url = 'mongodb://localhost:27017/Lightning';
+var url = 'mongodb://localhost';
 
 
 
@@ -30,10 +30,15 @@ var insertKey = function(info, db, callback) {
 
 // Wrapper function to insert data externally
 var insertKeyWrapper = function(info) {
-    MongoClient.connect(url, function(err, db) {
+
+
+    MongoClient.connect(url, function(err, client) {
+
+        var db = client.db('Lightning');
+
         assert.equal(null, err);
         insertKey(info, db, function() {
-            db.close();
+            client.close();
         });
     });
 };
@@ -58,11 +63,13 @@ var filterKeys = function(condition, db, callback) {
 
 // Wrapper function returns a single key
 var filterKeyWrapper = function(condition, callback) {
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(url, function(err, client) {
+
+        var db = client.db('Lightning');
 
         assert.equal(null, err);
         filterKeys(condition, db, function(result) {
-            db.close();
+            client.close();
             if (callback){
                 callback(result);
             }
@@ -84,12 +91,14 @@ var findAllKeys = function(db, callback) {
 };
 
 var findAllKeysWrapper = function(callback) {
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(url, function(err, client) {
+
+        var db = client.db('Lightning');
 
         assert.equal(null, err);
 
         findAllKeys(db, function(results) {
-            db.close();
+            client.close();
             if(callback)
                 callback(results);
         });
