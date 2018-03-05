@@ -14,18 +14,18 @@ var url = 'mongodb://localhost';
 // Inserts many keys
 var insertKey = function(info, db, callback) {
 
-    // // Get `keys` collection
-    // var collection = db.collection('chest');
-    // // Insert some documents
-    // collection.insertMany([
-    //     info
-    // ], function(err, result) {
-    //     assert.equal(err, null);
-    //     assert.equal(1, result.result.n);
-    //     assert.equal(1, result.ops.length);
-    //     console.log("Inserted 1 keys into the chest");
-    //     callback(result);
-    // });
+    // Get `keys` collection
+    var collection = db.collection('chest');
+    // Insert some documents
+    collection.insertMany([
+        info
+    ], function(err, result) {
+        assert.equal(err, null);
+        assert.equal(1, result.result.n);
+        assert.equal(1, result.ops.length);
+        console.log("Inserted 1 keys into the chest");
+        callback(result);
+    });
 };
 
 // Wrapper function to insert data externally
