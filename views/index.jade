@@ -125,75 +125,38 @@ html
             // Six
             section.wrapper.style1.align-center
                 .inner
-                    h2 Ipsum sed consequat
+                    h2 Message Wall
                     p
-                        | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id ante sed ex pharetra lacinia sit amet vel massa. Donec facilisis laoreet nulla eu bibendum. Donec ut ex risus. Fusce lorem lectus, pharetra pretium massa et, hendrerit vestibulum odio lorem ipsum.
+                        | Leave a friendly message below! Give suggestions, ask a question, or just say hi! All messages will be public, and any rude ones will be removed :).
                     .items.style1.medium.onscroll-fade-in
-                        section
-                            span.icon.style2.major.fa-diamond
-                            h3 Lorem
-                            p
-                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.
-                        section
-                            span.icon.style2.major.fa-save
-                            h3 Ipsum
-                            p
-                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.
-                        section
-                            span.icon.style2.major.fa-bar-chart
-                            h3 Dolor
-                            p
-                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.
-                        section
-                            span.icon.style2.major.fa-wifi
-                            h3 Amet
-                            p
-                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.
-                        section
-                            span.icon.style2.major.fa-cog
-                            h3 Magna
-                            p
-                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.
-                        section
-                            span.icon.style2.major.fa-paper-plane
-                            h3 Tempus
-                            p
-                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.
-                        section
-                            span.icon.style2.major.fa-desktop
-                            h3 Aliquam
-                            p
-                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.
-                        section
-                            span.icon.style2.major.fa-refresh
-                            h3 Elit
-                            p
-                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.
-                        section
-                            span.icon.style2.major.fa-hashtag
-                            h3 Morbi
-                            p
-                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.
-                        section
-                            span.icon.style2.major.fa-bolt
-                            h3 Turpis
-                            p
-                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.
-                        section
-                            span.icon.style2.major.fa-envelope
-                            h3 Ultrices
-                            p
-                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.
-                        section
-                            span.icon.style2.major.fa-leaf
-                            h3 Risus
-                            p
-                                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui turpis, cursus eget orci amet aliquam congue semper. Etiam eget ultrices risus nec tempor elit.
+
+                        /// TODO: Limit the number of posts that can appear
+                        - index = 0
+                        each post in wallposts
+                            - var poster = post['name'];
+                            - var message = post['message'];
+                            - console.log("Poster is: " + poster);
+                            - console.log("Message is: " + message);
+                            section
+                                span.icon.style2.major.fa-diamond
+                                h3 #{poster} says...
+                                p
+                                    | #{message}
+                                - index += 1
+
+                        // if we don't have any posts
+                        if index == 0
+                            section
+                                span.icon.style2.major.fa-diamond
+                                h3 :(
+                                p
+                                    | Looks like there's nothing here. Drop a message below!
+
             // Seven
             section.wrapper.style1.align-center
                 .inner.medium
-                    h2 Get in touch
-                    form(method='post', action='#')
+                    h2 Post a Message on my Wall Here!
+                    form
                         .field.half.first
                             label(for='name') Name
                             input#name(type='text', name='name', value='')
@@ -202,10 +165,11 @@ html
                             input#email(type='email', name='email', value='')
                         .field
                             label(for='message') Message
-                            textarea#message(name='message', rows='6')
+                            p#charcount
+                            textarea#message(name='message', rows='6', maxlength="250")
                         ul.actions
                             li
-                                input#submit(type='submit', name='submit', value='Send Message')
+                                button#submit(type='submit', onclick="wallsubmit()", value='Post') Post
             // Footer
             footer.wrapper.style1.align-center
                 .inner
@@ -235,4 +199,5 @@ html
         script(src='js/skel.min.js')
         script(src='js/util.js')
         script(src='js/main.js')
+        script(src='js/index.js', type="text/javascript")
         script(src='js/instafeed.min.js')
