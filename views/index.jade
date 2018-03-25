@@ -1,0 +1,203 @@
+doctype html
+//
+  Story by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+html
+    head
+
+
+        title Bryan Ngo
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        link(rel='stylesheet', href='css/main.css')
+        script(src='js/instafeed.min.js')
+        script(src='js/super_secret.js')
+
+        //script(type='text/javascript').
+        //    var userFeed = new Instafeed({
+        //        get: 'user',
+        //        userId: '4759956499',
+        //        limit: 15,
+        //        accessToken: "#{keys[0]['key']}",
+        //        resolution: 'standard_resolution',
+        //        template:
+        //        '<article>' +
+        //        '<a href="{{link}}" class="image adjust">' +
+        //        '<img class="adjust" src="{{image}}" alt="" />' +
+        //        '</a>' +
+        //        '<div class="caption">' +
+        //        '<h3><i class="fa fa-heart"></i></h3>' +
+        //        '<p>{{likes}}</p>' +
+        //        '<ul class="actions">' +
+        //        '<li><span class="button small">Details</span></li>' +
+        //        '</ul>' +
+        //        '</div>' +
+        //        '</article>'
+        //    });
+        //    userFeed.run();
+    body
+        // Wrapper
+        #wrapper.divided
+            // One
+            section.banner.style1.orient-left.content-align-left.image-position-center.fullscreen.onload-image-fade-in.onload-content-fade-right
+                .content
+                    h1 Hi! I'm Bryan.
+                    p.major
+                        | Incoming Software Engineering Intern '18 @#{' '}
+                        a(href='https://www.coursehero.com') Course Hero
+                        |  and an undergraduate Computer Science & Engineering Major, Statistics Minor @#{' '}
+                        a(href='https://www.ucdavis.edu') UC Davis
+                        | .
+                    ul.actions.vertical
+                        li
+                            a.button.big.wide.smooth-scroll-middle(href='#first') Get to know me
+                    ul.icons
+                        li
+                            a.icon.style2.fa-linkedin(href='https://www.linkedin.com/in/bryngo/', target='_blank')
+                                span.label Linkedin
+                        li
+                            a.icon.style2.fa-github(href='https://github.com/bryngo', target='_blank')
+                                span.label Github
+                        li
+                            a.icon.style2.fa-file(href='assets/resume.pdf', target='_blank')
+                                span.label Resume
+                        li
+                            a.icon.style2.fa-instagram(href='https://www.instagram.com/bryngo.jpg/', target='_blank')
+                                span.label Instagram
+                        li
+                            a.icon.style2.fa-twitter(href='https://twitter.com/BubblyBryan', target='_blank')
+                                span.label Twitter
+                        li
+                            a.icon.style2.fa-facebook(href='https://www.facebook.com/bryan.ngo.7', target='_blank')
+                                span.label Facebook
+                .image
+                    img(src='images/banner.jpg', alt='')
+            // Two
+            section#first.spotlight.style1.orient-right.invert.content-align-left.image-position-center.onscroll-image-fade-in
+                .content
+                    h2 Projects & More
+                    p
+                        | I took my first #{' '}
+                        a(href='http://www.cs.ucdavis.edu/blog/ecs-30-programming-problem-solving/') computer science course
+                        |  after coming to UCD. 3 years later, and I've learned a lot. Continue on to learn about my experiences, projects, and much more!
+                    ul.actions.vertical
+                        li
+                            a.button(href='#') ./read.sh
+                .image
+                    img(src='images/spotlight01.jpg', alt='')
+            // Three
+            section.spotlight.style1.orient-left.content-align-left.image-position-center.onscroll-image-fade-in
+                .content
+                    h2 Photography
+                    p
+                        | When I'm not programming, I'm taking pictures. This is my creative outlet, and I want to keep investing my time into it (I recommend everyone to have a creative outlet). Check out some of my work.
+                    ul.actions.vertical
+                        li
+                            a.button(href='#') TFP?
+                .image
+                    img(src='images/spotlight02.jpg', alt='')
+            // Four
+            section.spotlight.style1.orient-right.invert.content-align-left.image-position-center.onscroll-image-fade-in
+                .content
+                    h2 Blog
+                    p Here, you'll find my thoughts on life, food, and more!
+                    ul.actions.vertical
+                        li
+                            a.button(href='#')
+                                i.icon.fas.fa-male.fa-2x
+                                i.icon.fas.fa-spoon.fa-2x
+                                i.icon.fas.fa-play.fa-2x
+                .image
+                    img(src='images/spotlight03.jpg', alt='')
+            // Five: IG Feed
+            section.wrapper.style1.align-center
+                .inner
+                    h2 My Latest Shots
+                    ul.icons
+                        li
+                            a.icon.style2.fa-instagram(href='https://www.instagram.com/bryngo.jpg/', target='_blank')
+                                span.label Instagram
+                    hr
+                // Gallery
+                #instafeed.gallery.style1.small.lightbox.onscroll-fade-in
+
+            // Six
+            section.wrapper.style1.align-center
+                .inner
+                    h2 Message Wall
+                    p
+                        | Leave a friendly message below! Give suggestions, ask a question, or just say hi! All messages will be public, and any rude ones will be removed :).
+                    .items.style1.medium.onscroll-fade-in
+
+                        /// TODO: Limit the number of posts that can appear
+                        - index = 0
+                        each post in wallposts
+                            - var poster = post['name'];
+                            - var message = post['message'];
+                            - console.log("Poster is: " + poster);
+                            - console.log("Message is: " + message);
+                            section
+                                span.icon.style2.major.fa-diamond
+                                h3 #{poster} says...
+                                p
+                                    | #{message}
+                                - index += 1
+
+                        // if we don't have any posts
+                        if index == 0
+                            section
+                                span.icon.style2.major.fa-diamond
+                                h3 :(
+                                p
+                                    | Looks like there's nothing here. Drop a message below!
+
+            // Seven
+            section.wrapper.style1.align-center
+                .inner.medium
+                    h2 Post a Message on my Wall Here!
+                    form
+                        .field.half.first
+                            label(for='name') Name
+                            input#name(type='text', name='name', value='')
+                        .field.half
+                            label(for='email') Email
+                            input#email(type='email', name='email', value='')
+                        .field
+                            label(for='message') Message
+                            p#charcount
+                            textarea#message(name='message', rows='6', maxlength="250")
+                        ul.actions
+                            li
+                                button#submit(type='submit', onclick="wallsubmit()", value='Post') Post
+            // Footer
+            footer.wrapper.style1.align-center
+                .inner
+                    ul.icons
+                        li
+                            a.icon.style2.fa-linkedin(href='https://www.linkedin.com/in/bryngo/', target='_blank')
+                                span.label Linkedin
+                        li
+                            a.icon.style2.fa-github(href='https://github.com/bryngo', target='_blank')
+                                span.label Github
+                        li
+                            a.icon.style2.fa-file(href='assets/resume.pdf', target='_blank')
+                                span.label Resume
+                        li
+                            a.icon.style2.fa-instagram(href='https://www.instagram.com/bryngo.jpg/', target='_blank')
+                                span.label Instagram
+                        li
+                            a.icon.style2.fa-twitter(href='https://twitter.com/BubblyBryan', target='_blank')
+                                span.label Twitter
+                        li
+                            a.icon.style2.fa-facebook(href='https://www.facebook.com/bryan.ngo.7', target='_blank')
+                                span.label Facebook
+        // Scripts
+        script(src='js/jquery.min.js')
+        script(src='js/jquery.scrollex.min.js')
+        script(src='js/jquery.scrolly.min.js')
+        script(src='js/skel.min.js')
+        script(src='js/util.js')
+        script(src='js/main.js')
+        script(src='js/index.js', type="text/javascript")
+        script(src='js/instafeed.min.js')
