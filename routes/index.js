@@ -8,6 +8,7 @@ var mime = require('mime');
 var keyqueries = require('./keyqueries');
 var wallpostqueries = require('./wallpostqueries');
 
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
@@ -24,6 +25,15 @@ router.get('/', function(req, res, next) {
     });
 });
 
+
+router.get('/blog', function(req, res, next) {
+
+    res.render('blog',{
+        title: 'Blog'
+    });
+
+})
+
 /* For submitting a message from the home page */
 router.post('/wallsubmit', function(req, res) {
 
@@ -38,7 +48,8 @@ router.post('/wallsubmit', function(req, res) {
 
 
     res.end("Wall post successfully submitted into database")
-});
+
+}); /// TODO: email myself wall posts for review
 
 
 // Export to make this externally visible
