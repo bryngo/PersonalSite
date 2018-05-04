@@ -1,37 +1,36 @@
-Story by HTML5 UP
-html5up.net | @ajlkn
-Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+# My Personal Website
+## Tech Stack
+### Client Side
+    - HTML/CSS/JS
+### Server Side
+    - Node.js
+    - Express
+    - MongoDB
+    - Jade
 
+## Views
+### /
+- This is the home page of the website.
+- Visitors can post a message on a comment wall, provided the user enters a
+name, email, and message.
 
-Say hello to Story, a brand new responsive one-pager for HTML5 UP! Inspired by my work
-on Carrd*, Story is built to be extremely modular and tweakable, and as such is entirely
-built on reusable, insanely customizable elements (like "spotlight" and "gallery") that
-can be endlessly duplicated and tweaked into whatever you need to tell your story --
-without, in many cases, touching *any* CSS. Check out index-demo.html for an interactive
-demo, and index.html for the actual template. Enjoy!
+### /blog
+- Landing page for future blogs.
 
-Demo images** courtesy of Unsplash, a radtastic collection of CC0 (public domain) images
-you can use for pretty much whatever.
+### Future Plans / Development
+#### Message Wall
+- Add additional functionality server side to filter out nasty messages
+- Prevent bots from crashing the site (by entering too much data).
+#### Blog
+- Add an interface for myself to write blog posts without needing to write
+any Jade/HTML. Said blogs would be queryed from my MongoDB before rendering a
+page.
+- Begin working on the tech blog, which focuses on academic-related writing,
+or UC Davis specific things.
 
-PS: Delete index-demo.html and assets/js/demo.js when you're done messing with the demo
-as neither are needed in production :)
-
-(* = my other side project -- carrd.co)
-(** = not included)
-
-AJ
-aj@lkn.io | @ajlkn
-
-
-Credits:
-
-	Demo Images:
-		Unsplash (unsplash.com)
-
-	Icons:
-		Font Awesome (fortawesome.github.com/Font-Awesome)
-
-	Other:
-		jQuery (jquery.com)
-		Misc. Sass functions (@HugoGiraudel)
-		Skel (skel.io)
+## Acknowledgements
+- The tech stack for this website is an adaptation from 
+[this](https://github.com/BCNC/bcnc.github.io) project that I am working on.
+The original developer for the stack is [Vincent Yang](https://vincentyang.me)
+- The design for the website are variations / combinations of templates created
+by [html5up](https://html5up.net).
