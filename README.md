@@ -27,6 +27,10 @@ any Jade/HTML. Said blogs would be queryed from my MongoDB before rendering a
 page.
 - Begin working on the tech blog, which focuses on academic-related writing,
 or UC Davis specific things.
+#### Misc
+- Add a 404 page
+
+
 
 ## Acknowledgements
 - The tech stack for this website is an adaptation from 
