@@ -5,274 +5,266 @@ doctype html
   Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 html
   head
-    title Blog 
+    title #{title} 
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    //if lte IE 8
-      script(src='assets/js/ie/html5shiv.js')
     link(rel='stylesheet', href='css/blog.css')
-    //if lte IE 9
-      link(rel='stylesheet', href='assets/css/ie9.css')
-    //if lte IE 8
-      link(rel='stylesheet', href='assets/css/ie8.css')
   body
-    // Wrapper
-    #wrapper
-      // Header
-      header#header
-        h1
-          a(href='#') Blog
-        nav.links
-          ul
-            li
-              a(href='#') Lorem
-            li
-              a(href='#') Ipsum
-            li
-              a(href='#') Feugiat
-            li
-              a(href='#') Tempus
-            li
-              a(href='#') Adipiscing
-        nav.main
-          ul
-            li.search
-              a.fa-search(href='#search') Search
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              form#search(method='get', action='#')
-                input(type='text', name='query', placeholder='Search')
-            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-            li.menu
-              a.fa-bars(href='#menu') Menu
-      // Menu
-      section#menu
-        // Search
-        section
-          form.search(method='get', action='#')
-            input(type='text', name='query', placeholder='Search')
-        // Links
-        section
-          ul.links
-            li
-              a(href='#')
-                h3 Lorem ipsum
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                p Feugiat tempus veroeros dolor
+  // Wrapper
+  #wrapper
+    // Header
+    header#header
+      h1
+        a(href='#') Blog
+      nav.links
+        ul
+          li
+            a(href='#') Lorem
+          li
+            a(href='#') Ipsum
+          li
+            a(href='#') Feugiat
+          li
+            a(href='#') Tempus
+          li
+            a(href='#') Adipiscing
+      nav.main
+        ul
+          li.search
+            a.fa-search(href='#search') Search
             | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            form#search(method='get', action='#')
+              input(type='text', name='query', placeholder='Search')
+          | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+          li.menu
+            a.fa-bars(href='#menu') Menu
+    // Menu
+    section#menu
+      // Search
+      section
+        form.search(method='get', action='#')
+          input(type='text', name='query', placeholder='Search')
+      // Links
+      section
+        ul.links
+          li
+            a(href='#')
+              h3 Lorem ipsum
+              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+              p Feugiat tempus veroeros dolor
+          | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+          li
+            a(href='#')
+              h3 Dolor sit amet
+              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+              p Sed vitae justo condimentum
+          | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+          li
+            a(href='#')
+              h3 Feugiat veroeros
+              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+              p Phasellus sed ultricies mi congue
+          | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+          li
+            a(href='#')
+              h3 Etiam sed consequat
+              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+              p Porta lectus amet ultricies
+      // Actions
+      section
+        ul.actions.vertical
+          li
+            a.button.big.fit(href='#') Log In
+    // Main
+    #main
+      // Post
+      article.post
+        header
+          .title
+            h2
+              a(href='#') 
+                  p My dabble in photography thus far 
+          .meta
+            time.published(datetime='2018-05-04') May 4th, 2018
+        a.image.featured(href='#')
+          img(src='images/spotlight03.jpg', alt='')
+        p
+            | It's been about an entire year since I got my #{' '}
+            a(href="https://www.amazon.com/Nikon-D3400-NIKKOR-18-55mm-3-5-5-6G/dp/B01KITZKDE") first camera
+            |  so I figure it's a good time to reflect, and figure out where
+            |  I'm going from here.
+        footer
+          ul.actions
             li
-              a(href='#')
-                h3 Dolor sit amet
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                p Sed vitae justo condimentum
-            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+              a.button.big(href='/blog/coursehero') Continue Reading
+          ul.stats
             li
-              a(href='#')
-                h3 Feugiat veroeros
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                p Phasellus sed ultricies mi congue
-            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+              a(href='#') General
             li
-              a(href='#')
-                h3 Etiam sed consequat
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                p Porta lectus amet ultricies
-        // Actions
-        section
-          ul.actions.vertical
+              a.icon.fa-heart(href='#') 42
             li
-              a.button.big.fit(href='#') Log In
-      // Main
-      #main
-        // Post
-        article.post
+              a.icon.fa-comment(href='#') test
+      // Pagination
+      ul.actions.pagination
+        li
+          a.disabled.button.big.previous(href='') Previous Page
+        li
+          a.button.big.next(href='#') Next Page
+    // Sidebar
+    section#sidebar
+      // Intro
+      section#intro
+          a.logo(href='#')
+              i.icon.fas.fa-heart.fa-2x
           header
-            .title
-              h2
-                a(href='#') 
-                    p My dabble in photography thus far 
-            .meta
-              time.published(datetime='2018-05-04') May 4th, 2018
-          a.image.featured(href='#')
-            img(src='images/spotlight03.jpg', alt='')
+          h2 Blogs
           p
-              | It's been about an entire year since I got my #{' '}
-              a(href="https://www.amazon.com/Nikon-D3400-NIKKOR-18-55mm-3-5-5-6G/dp/B01KITZKDE") first camera
-              |  so I figure it's a good time to reflect, and figure out where
-              |  I'm going from here.
-          footer
-            ul.actions
-              li
-                a.button.big(href='#') Continue Reading
-            ul.stats
-              li
-                a(href='#') General
-              li
-                a.icon.fa-heart(href='#') 42
-              li
-                a.icon.fa-comment(href='#') test
-        // Pagination
-        ul.actions.pagination
-          li
-            a.disabled.button.big.previous(href='') Previous Page
-          li
-            a.button.big.next(href='#') Next Page
-      // Sidebar
-      section#sidebar
-        // Intro
-        section#intro
-            a.logo(href='#')
-                i.icon.fas.fa-heart.fa-2x
-            header
-            h2 Blogs
-            p
-              | My thoughts of life, food, and more!
-        // // Mini Posts
-        // section
-        //   .mini-posts
-        //     // Mini Post
-        //     article.mini-post
-        //       header
-        //         h3
-        //           a(href='#') Vitae sed condimentum
-        //         time.published(datetime='2015-10-20') October 20, 2015
-        //         a.author(href='#')
-        //           img(src='images/avatar.jpg', alt='')
-        //       a.image(href='#')
-        //         img(src='images/pic04.jpg', alt='')
-        //     // Mini Post
-        //     article.mini-post
-        //       header
-        //         h3
-        //           a(href='#') Rutrum neque accumsan
-        //         time.published(datetime='2015-10-19') October 19, 2015
-        //         a.author(href='#')
-        //           img(src='images/avatar.jpg', alt='')
-        //       a.image(href='#')
-        //         img(src='images/pic05.jpg', alt='')
-        //     // Mini Post
-        //     article.mini-post
-        //       header
-        //         h3
-        //           a(href='#') Odio congue mattis
-        //         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-        //         time.published(datetime='2015-10-18') October 18, 2015
-        //         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-        //         a.author(href='#')
-        //           img(src='images/avatar.jpg', alt='')
-        //       | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-        //       a.image(href='#')
-        //         img(src='images/pic06.jpg', alt='')
-        //     // Mini Post
-        //     article.mini-post
-        //       header
-        //         h3
-        //           a(href='#') Enim nisl veroeros
-        //         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-        //         time.published(datetime='2015-10-17') October 17, 2015
-        //         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-        //         a.author(href='#')
-        //           img(src='images/avatar.jpg', alt='')
-        //       | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-        //       a.image(href='#')
-        //         img(src='images/pic07.jpg', alt='')
-        // Posts List
-        // section
-        //   ul.posts
-        //     li
-        //       article
-        //         header
-        //           h3
-        //             a(href='#') Lorem ipsum fermentum ut nisl vitae
-        //           | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-        //           time.published(datetime='2015-10-20') October 20, 2015
-        //         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-        //         a.image(href='#')
-        //           img(src='images/pic08.jpg', alt='')
-        //     | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-        //     li
-        //       article
-        //         header
-        //           h3
-        //             a(href='#') Convallis maximus nisl mattis nunc id lorem
-        //           | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-        //           time.published(datetime='2015-10-15') October 15, 2015
-        //         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-        //         a.image(href='#')
-        //           img(src='images/pic09.jpg', alt='')
-        //     | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-        //     li
-        //       article
-        //         header
-        //           h3
-        //             a(href='#') Euismod amet placerat vivamus porttitor
-        //           | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-        //           time.published(datetime='2015-10-10') October 10, 2015
-        //         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-        //         a.image(href='#')
-        //           img(src='images/pic10.jpg', alt='')
-        //     | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-        //     li
-        //       article
-        //         header
-        //           h3
-        //             a(href='#') Magna enim accumsan tortor cursus ultricies
-        //           | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-        //           time.published(datetime='2015-10-08') October 8, 2015
-        //         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-        //         a.image(href='#')
-        //           img(src='images/pic11.jpg', alt='')
-        //     | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-        //     li
-        //       article
-        //         header
-        //           h3
-        //             a(href='#') Congue ullam corper lorem ipsum dolor
-        //           | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-        //           time.published(datetime='2015-10-06') October 7, 2015
-        //         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-        //         a.image(href='#')
-        //           img(src='images/pic12.jpg', alt='')
-        // About
-        section.blurb
-          h2 About
-          p
-              | Hey there! If you didn't know already, my name is Bryan. I'm
-              | currently a third year undergrad @ UCD studying Computer Science
-              | and Engineering. I also like snowboarding, photographing, and
-              | hiking! Check out my links at the bottom of this pae
+            | My thoughts of life, food, and more!
+      // // Mini Posts
+      // section
+      //   .mini-posts
+      //     // Mini Post
+      //     article.mini-post
+      //       header
+      //         h3
+      //           a(href='#') Vitae sed condimentum
+      //         time.published(datetime='2015-10-20') October 20, 2015
+      //         a.author(href='#')
+      //           img(src='images/avatar.jpg', alt='')
+      //       a.image(href='#')
+      //         img(src='images/pic04.jpg', alt='')
+      //     // Mini Post
+      //     article.mini-post
+      //       header
+      //         h3
+      //           a(href='#') Rutrum neque accumsan
+      //         time.published(datetime='2015-10-19') October 19, 2015
+      //         a.author(href='#')
+      //           img(src='images/avatar.jpg', alt='')
+      //       a.image(href='#')
+      //         img(src='images/pic05.jpg', alt='')
+      //     // Mini Post
+      //     article.mini-post
+      //       header
+      //         h3
+      //           a(href='#') Odio congue mattis
+      //         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+      //         time.published(datetime='2015-10-18') October 18, 2015
+      //         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+      //         a.author(href='#')
+      //           img(src='images/avatar.jpg', alt='')
+      //       | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+      //       a.image(href='#')
+      //         img(src='images/pic06.jpg', alt='')
+      //     // Mini Post
+      //     article.mini-post
+      //       header
+      //         h3
+      //           a(href='#') Enim nisl veroeros
+      //         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+      //         time.published(datetime='2015-10-17') October 17, 2015
+      //         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+      //         a.author(href='#')
+      //           img(src='images/avatar.jpg', alt='')
+      //       | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+      //       a.image(href='#')
+      //         img(src='images/pic07.jpg', alt='')
+      // Posts List
+      // section
+      //   ul.posts
+      //     li
+      //       article
+      //         header
+      //           h3
+      //             a(href='#') Lorem ipsum fermentum ut nisl vitae
+      //           | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+      //           time.published(datetime='2015-10-20') October 20, 2015
+      //         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+      //         a.image(href='#')
+      //           img(src='images/pic08.jpg', alt='')
+      //     | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+      //     li
+      //       article
+      //         header
+      //           h3
+      //             a(href='#') Convallis maximus nisl mattis nunc id lorem
+      //           | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+      //           time.published(datetime='2015-10-15') October 15, 2015
+      //         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+      //         a.image(href='#')
+      //           img(src='images/pic09.jpg', alt='')
+      //     | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+      //     li
+      //       article
+      //         header
+      //           h3
+      //             a(href='#') Euismod amet placerat vivamus porttitor
+      //           | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+      //           time.published(datetime='2015-10-10') October 10, 2015
+      //         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+      //         a.image(href='#')
+      //           img(src='images/pic10.jpg', alt='')
+      //     | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+      //     li
+      //       article
+      //         header
+      //           h3
+      //             a(href='#') Magna enim accumsan tortor cursus ultricies
+      //           | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+      //           time.published(datetime='2015-10-08') October 8, 2015
+      //         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+      //         a.image(href='#')
+      //           img(src='images/pic11.jpg', alt='')
+      //     | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+      //     li
+      //       article
+      //         header
+      //           h3
+      //             a(href='#') Congue ullam corper lorem ipsum dolor
+      //           | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+      //           time.published(datetime='2015-10-06') October 7, 2015
+      //         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+      //         a.image(href='#')
+      //           img(src='images/pic12.jpg', alt='')
+      // About
+      section.blurb
+        h2 About
+        p
+            | Hey there! If you didn't know already, my name is Bryan. I'm
+            | currently a third year undergrad @ UCD studying Computer Science
+            | and Engineering. I also like snowboarding, photographing, and
+            | hiking! Check out my links at the bottom of this pae
 
-        // Footer
-        section#footer
-          ul.icons
-      
-            li
-                a.icon.style2.fa-linkedin(href='https://www.linkedin.com/in/bryngo/', target='_blank')
-                    span.label Linkedin
-            li
-                a.icon.style2.fa-github(href='https://github.com/bryngo', target='_blank')
-                    span.label Github
-            li
-                a.icon.style2.fa-file(href='assets/resume.pdf', target='_blank')
-                    span.label Resume
-            li
-                a.icon.style2.fa-instagram(href='https://www.instagram.com/bryngo.jpg/', target='_blank')
-                    span.label Instagram
-            li
-                a.icon.style2.fa-twitter(href='https://twitter.com/BubblyBryan', target='_blank')
-                    span.label Twitter
-            li
-                a.icon.style2.fa-facebook(href='https://www.facebook.com/bryan.ngo.7', target='_blank')
-             
-          p.copyright
-            | &copy; Untitled. Design: 
-            a(href='http://html5up.net') HTML5 UP
-            // | . Images: 
-            // a(href='http://unsplash.com') Unsplash
-            // | .
-    // Scripts
-    script(src='js/jquery.min.js')
-    | &#x9;&#x9;&#x9;
-    script(src='js/skel.min.js')
-    | &#x9;&#x9;&#x9;
-    script(src='js/util.js')
-    script(src='js/blog.js')
+      // Footer
+      section#footer
+        ul.icons
+
+          li
+              a.icon.style2.fa-linkedin(href='https://www.linkedin.com/in/bryngo/', target='_blank')
+                  span.label Linkedin
+          li
+              a.icon.style2.fa-github(href='https://github.com/bryngo', target='_blank')
+                  span.label Github
+          li
+              a.icon.style2.fa-file(href='assets/resume.pdf', target='_blank')
+                  span.label Resume
+          li
+              a.icon.style2.fa-instagram(href='https://www.instagram.com/bryngo.jpg/', target='_blank')
+                  span.label Instagram
+          li
+              a.icon.style2.fa-twitter(href='https://twitter.com/BubblyBryan', target='_blank')
+                  span.label Twitter
+          li
+              a.icon.style2.fa-facebook(href='https://www.facebook.com/bryan.ngo.7', target='_blank')
+
+        p.copyright
+          | &copy; Untitled. Design: 
+          a(href='http://html5up.net') HTML5 UP
+          // | . Images: 
+          // a(href='http://unsplash.com') Unsplash
+          // | .
+        // Scripts
+        script(src='js/jquery.min.js')
+        script(src='js/skel.min.js')
+        script(src='js/util.js')
+        script(src='js/blog.js')

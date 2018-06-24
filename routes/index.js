@@ -9,6 +9,12 @@ var keyqueries = require('./keyqueries');
 var wallpostqueries = require('./wallpostqueries');
 
 
+/* GET blog page. */
+router.get('/blog', function(req, res, next) {
+
+    res.render('blog', {title: 'Blog'});
+});
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
@@ -25,14 +31,13 @@ router.get('/', function(req, res, next) {
     });
 });
 
-
-router.get('/blog', function(req, res, next) {
-
-    res.render('blog',{
-        title: 'Blog'
-    });
-
-})
+//
+// router.get('/blog/coursehero', function(req, res, next) {
+//   res.render('blogposts/coursehero', {
+//     title: 'Course Hero'
+//   });
+// })
+//
 
 /* For submitting a message from the home page */
 router.post('/wallsubmit', function(req, res) {
