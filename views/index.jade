@@ -42,11 +42,6 @@ html
                 .content
                     h1 Hi! I'm Bryan.
                     p.major
-                        | Incoming Software Engineering Intern '18 @#{' '}
-                        a(href='https://www.coursehero.com') Course Hero
-                        |  and an undergraduate Computer Science & Engineering Major, Statistics Minor @#{' '}
-                        a(href='https://www.ucdavis.edu') UC Davis
-                        | .
                     ul.actions.vertical
                         li
                             a.button.big.wide.smooth-scroll-middle(href='#first') Get to know me
@@ -75,10 +70,6 @@ html
             section#first.spotlight.style1.orient-right.invert.content-align-left.image-position-center.onscroll-image-fade-in
                 .content
                     h2 Projects & More
-                    p
-                        | I took my first #{' '}
-                        a(href='http://www.cs.ucdavis.edu/blog/ecs-30-programming-problem-solving/') computer science course
-                        |  after coming to UCD. 3 years later, and I've learned a lot. Continue on to learn about my experiences, projects, and much more!
                     ul.actions.vertical
                         li
                             a.button(href='#') ./read.sh
@@ -88,8 +79,6 @@ html
             section.spotlight.style1.orient-left.content-align-left.image-position-center.onscroll-image-fade-in
                 .content
                     h2 Photography
-                    p
-                        | When I'm not programming, I'm taking pictures. This is my creative outlet, and I want to keep investing my time into it (I recommend everyone to have a creative outlet). Check out some of my work.
                     ul.actions.vertical
                         li
                             a.button(href='#') TFP?
@@ -99,7 +88,6 @@ html
             section.spotlight.style1.orient-right.invert.content-align-left.image-position-center.onscroll-image-fade-in
                 .content
                     h2 Blog
-                    p Here, you'll find my thoughts on life, food, and more!
                     ul.actions.vertical
                         li
                             a.button(href='blog')
@@ -125,7 +113,7 @@ html
                 .inner
                     h2 Message Wall
                     p
-                        | Leave a friendly message below! Give suggestions, ask a question, or just say hi! All messages will be public, and any rude ones will be removed :).
+                        | Leave a friendly message below! Give suggestions, ask a question, or just say hi!
                     .items.style1.medium.onscroll-fade-in
 
                         /// TODO: Limit the number of posts that can appear
@@ -133,8 +121,6 @@ html
                         each post in wallposts
                             - var poster = post['name'];
                             - var message = post['message'];
-                            - console.log("Poster is: " + poster);
-                            - console.log("Message is: " + message);
                             section
                                 span.icon.style2.major.fa-diamond
                                 h3 #{poster} says...

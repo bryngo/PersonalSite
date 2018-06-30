@@ -46,7 +46,7 @@ router.get('/register', function(req, res) {
 });
 
 router.post('/register', (req, res, next) => {
-    Account.register(new Account({ username : req.body.username, permission : 0 }), req.body.password, (err, account) => {
+    Account.register(new Account({ username : req.body.username, permission : 0, email: req.body.email}), req.body.password, (err, account) => {
         if (err) {
             return res.render('register', { error : err.message });
         }

@@ -1,19 +1,12 @@
 
 function wallsubmit() {
 
-    console.log("Submitting...");
     var name = $('#name').val().trim();
     var email = $('#email').val().trim();
     var message = $('#message').val().trim();
 
-    console.log("Name: " + name);
-    console.log("email: " + email);
-    console.log("message: " + message);
-
     // make sure all the fields are fields are filled out
     if (name != '' && email != '' && message != '') {
-
-        console.log("All fields are good! Uploading to database");
 
         // call the submit function
         $.ajax({

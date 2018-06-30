@@ -22,7 +22,6 @@ var insertAdmin = function(info, db, callback) {
         assert.equal(err, null);
         assert.equal(1, result.result.n);
         assert.equal(1, result.ops.length);
-        console.log("Inserted 1 admin into the collection");
         callback(result);
     });
 };
@@ -50,8 +49,6 @@ var filterAdmins = function(condition, db, callback) {
     // Find some documents
     collection.find(condition).toArray(function(err, docs) {
         assert.equal(err, null);
-        console.log("Found specific event(s) with condition " + JSON.stringify(condition, null, 2));
-        console.log(docs);
         callback(docs);
     });
 };

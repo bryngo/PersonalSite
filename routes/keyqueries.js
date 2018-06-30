@@ -23,7 +23,6 @@ var insertKey = function(info, db, callback) {
         assert.equal(err, null);
         assert.equal(1, result.result.n);
         assert.equal(1, result.ops.length);
-        console.log("Inserted 1 keys into the chest");
         callback(result);
     });
 };
@@ -54,8 +53,6 @@ var filterKeys = function(condition, db, callback) {
     // Find some documents
     collection.find(condition).toArray(function(err, docs) {
         assert.equal(err, null);
-        console.log("Found specific event(s) with condition " + JSON.stringify(condition, null, 2));
-        console.log(docs);
         callback(docs);
     });
 };
@@ -84,8 +81,6 @@ var findAllKeys = function(db, callback) {
 
     collection.find({}).toArray(function(err, docs) {
        assert.equal(err, null);
-       console.log("All of the keys: \n");
-       console.log(docs);
        callback(docs);
     });
 };

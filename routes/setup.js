@@ -27,7 +27,6 @@ var insertKey = function(db, callback) {
         assert.equal(err, null);
         assert.equal(1, result.result.n);
         assert.equal(1, result.ops.length);
-        console.log("Inserted 1 key into collection chest");
         callback(result);
     });
 };
@@ -50,8 +49,6 @@ var findAllKeys = function(db, callback) {
 
     collection.find({}).toArray(function(err, docs) {
         assert.equal(err, null);
-        console.log("All of the keys: \n");
-        console.log(docs);
         callback(docs);
     });
 };
