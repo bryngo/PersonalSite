@@ -35,6 +35,15 @@ html
         //    });
         //    userFeed.run();
     body
+
+
+        div
+            - if (user)
+                #snackbar Hi, #{user.username}!
+            - else
+                #snackbar Hey there! Want to #{' '}
+                        a(href='/register') register
+                        |  an account?
         // Wrapper
         #wrapper.divided
             // One

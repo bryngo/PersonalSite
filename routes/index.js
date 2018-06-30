@@ -14,6 +14,9 @@ var wallpostqueries = require('./wallpostqueries');
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
+    if(req.user)
+        console.log(req.user.username);
+
     var condition = {key_type: "IG_access_token"};
 
     keyqueries.filterKey(condition, function(result) {
@@ -21,7 +24,8 @@ router.get('/', function(req, res, next) {
             res.render('index', {
                 title: 'Home',
                 keys: result,
-                wallposts: wallresult
+                wallposts: wallresult,
+                user: req.user
             });
         });
     });
