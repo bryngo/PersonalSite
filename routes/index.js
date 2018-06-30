@@ -4,16 +4,12 @@ var fs = require('fs');
 var multer = require('multer');
 var mime = require('mime');
 
+const passport = require('passport');
+const Account = require('../models/account');
+
 // import query file(s)
 var keyqueries = require('./keyqueries');
 var wallpostqueries = require('./wallpostqueries');
-
-
-/* GET blog page. */
-router.get('/blog', function(req, res, next) {
-
-    res.render('blog', {title: 'Blog'});
-});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -31,13 +27,65 @@ router.get('/', function(req, res, next) {
     });
 });
 
-//
-// router.get('/blog/coursehero', function(req, res, next) {
-//   res.render('blogposts/coursehero', {
-//     title: 'Course Hero'
-//   });
-// })
-//
+/* GET blog page. */
+router.get('/blog', function(req, res, next) {
+
+    res.render('blog', {title: 'Blog'});
+});
+
+/* GET blog/coursehero */
+router.get('/blog/coursehero', function(req, res, next) {
+
+   res.render('blog', {title: 'Blog'});
+
+});
+
+/* GET registration page */
+router.get('/register', function(req, res) {
+    res.render('register', { });
+});
+
+router.post('/register', (req, res, next) => {
+    Account.register(new Account({ username : req.body.username }), req.body.password, (err, account) => {
+        if (err) {
+            return res.render('register', { error : err.message });
+        }
+
+        passport.authenticate('local')(req, res, () => {
+            req.session.save((err) => {
+                if (err) {
+                    return next(err);
+                }
+                res.redirect('/');
+            });
+        });
+    });
+});
+
+/* GET login page */
+router.get('/login', (req, res) => {
+    res.render('login', { user : req.user, error : req.flash('error')});
+});
+
+router.post('/login', passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }), (req, res, next) => {
+    req.session.save((err) => {
+        if (err) {
+            return next(err);
+        }
+        res.redirect('/');
+    });
+});
+
+/* GET logout page */
+router.get('/logout', (req, res, next) => {
+    req.logout();
+    req.session.save((err) => {
+        if (err) {
+            return next(err);
+        }
+        res.redirect('/');
+    });
+});
 
 /* For submitting a message from the home page */
 router.post('/wallsubmit', function(req, res) {
