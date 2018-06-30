@@ -1,2 +1,5 @@
 images
 public/js/super_secret.js
+*.xml
+.idea
+*.swp
