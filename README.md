@@ -1,4 +1,6 @@
 # My Personal Website
+
+[![Build Status](https://travis-ci.org/bryngo/PersonalSite.svg?branch=master)](https://travis-ci.org/bryngo/PersonalSite)
 ## Tech Stack
 ### Client Side
     - HTML/CSS/JS
