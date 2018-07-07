@@ -6,91 +6,12 @@ doctype html
 html
   head
     title #{title} 
-    | &#x9;&#x9;
     meta(charset='utf-8')
-    | &#x9;&#x9;
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    //if lte IE 8
-      script(src='assets/js/ie/html5shiv.js')
-    | &#x9;&#x9;
-    link(rel='stylesheet', href='css/main.css')
-    //if lte IE 9
-      link(rel='stylesheet', href='assets/css/ie9.css')
-    //if lte IE 8
-      link(rel='stylesheet', href='assets/css/ie8.css')
-  | &#x9;
+    link(rel='stylesheet', href='css/single_blog.css')
   body.single
-    // Wrapper
     #wrapper
-      // Header
-      header#header
-        h1
-          a(href='#') Future Imperfect
-        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-        nav.links
-          ul
-            li
-              a(href='#') Lorem
-            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-            li
-              a(href='#') Ipsum
-            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-            li
-              a(href='#') Feugiat
-            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-            li
-              a(href='#') Tempus
-            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-            li
-              a(href='#') Adipiscing
-        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-        nav.main
-          ul
-            li.search
-              a.fa-search(href='#search') Search
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              form#search(method='get', action='#')
-                input(type='text', name='query', placeholder='Search')
-            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-            li.menu
-              a.fa-bars(href='#menu') Menu
-      // Menu
-      section#menu
-        // Search
-        section
-          form.search(method='get', action='#')
-            input(type='text', name='query', placeholder='Search')
-        // Links
-        section
-          ul.links
-            li
-              a(href='#')
-                h3 Lorem ipsum
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                p Feugiat tempus veroeros dolor
-            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-            li
-              a(href='#')
-                h3 Dolor sit amet
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                p Sed vitae justo condimentum
-            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-            li
-              a(href='#')
-                h3 Feugiat veroeros
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                p Phasellus sed ultricies mi congue
-            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-            li
-              a(href='#')
-                h3 Etiam sed consequat
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                p Porta lectus amet ultricies
-        // Actions
-        section
-          ul.actions.vertical
-            li
-              a.button.big.fit(href='#') Log In
+      include ../blog_header
       // Main
       #main
         // Post
@@ -125,37 +46,19 @@ html
               | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
               li
                 a.icon.fa-heart(href='#') 28
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
               li
                 a.icon.fa-comment(href='#') 128
-      // Footer
-      section#footer
-        ul.icons
-          li
-            a.fa-twitter(href='#')
-              span.label Twitter
-          li
-            a.fa-facebook(href='#')
-              span.label Facebook
-          li
-            a.fa-instagram(href='#')
-              span.label Instagram
-          li
-            a.fa-rss(href='#')
-              span.label RSS
-          li
-            a.fa-envelope(href='#')
-              span.label Email
+
+        include ../blog_footer
+
         p.copyright
-          | &copy; Untitled. Design: 
+          | &copy; Untitled. Design:
           a(href='http://html5up.net') HTML5 UP
-          | . Images: 
+          | . Images:
           a(href='http://unsplash.com') Unsplash
           | .
-    // Scripts
-    script(src='js/jquery.min.js')
-    script(src='js/skel.min.js')
-    script(src='js/util.js')
-    //if lte IE 8
-      script(src='assets/js/ie/respond.min.js')
-    script(src='assets/js/main.js')
+      // Scripts
+      script(src='js/jquery.min.js')
+      script(src='js/skel.min.js')
+      script(src='js/util.js')
+      script(src='js/blog.js')

@@ -34,13 +34,19 @@ router.get('/', function(req, res, next) {
 /* GET blog page. */
 router.get('/blog', function(req, res, next) {
 
-    res.render('blog', {title: 'Blog'});
+    res.render('blog', {
+        title: 'Blog',
+        stylesheet: 'css/blog.css'
+    });
 });
 
 /* GET blog/coursehero */
-router.get('/blog/coursehero', function(req, res, next) {
+router.get('/coursehero', function(req, res, next) {
 
-   res.render('blog', {title: 'Blog'});
+   res.render('blogposts/coursehero', {
+       title: 'Course Hero',
+       stylesheet: 'css/blog_single.css'
+   });
 
 });
 
