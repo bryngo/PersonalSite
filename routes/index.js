@@ -10,8 +10,11 @@ const Account = require('../models/account');
 // import query file(s)
 var keyqueries = require('./keyqueries');
 var wallpostqueries = require('./wallpostqueries');
+var animequeries = require('./anime_queries');
 
-/* GET home page. */
+/**
+ * @route: /
+ */
 router.get('/', function(req, res, next) {
 
     if(req.user)
@@ -31,26 +34,28 @@ router.get('/', function(req, res, next) {
     });
 });
 
-/* GET blog page. */
+/**
+ *  @route: /blog
+ */
 router.get('/blog', function(req, res, next) {
 
     res.render('blog', {
-        title: 'Blog',
-        stylesheet: 'css/blog.css'
-    });
+        title: 'Blog'});
 });
 
-/* GET blog/coursehero */
+/**
+ * @route: /coursehero
+ */
 router.get('/coursehero', function(req, res, next) {
 
    res.render('blogposts/coursehero', {
-       title: 'Course Hero',
-       stylesheet: 'css/blog_single.css'
-   });
+       title: 'Course Hero'});
 
 });
 
-/* GET registration page */
+/**
+ *  @route: /register
+ */
 router.get('/register', function(req, res) {
     res.render('register', { });
 });
@@ -72,7 +77,9 @@ router.post('/register', (req, res, next) => {
     });
 });
 
-/* GET login page */
+/**
+ * @route: /login
+ */
 router.get('/login', (req, res) => {
     res.render('login', { user : req.user, error : req.flash('error')});
 });
@@ -86,7 +93,9 @@ router.post('/login', passport.authenticate('local', { failureRedirect: '/login'
     });
 });
 
-/* GET logout page */
+/**
+ * @route: /logout
+ */
 router.get('/logout', (req, res, next) => {
     req.logout();
     req.session.save((err) => {
@@ -95,6 +104,34 @@ router.get('/logout', (req, res, next) => {
         }
         res.redirect('/');
     });
+});
+
+/**
+ * @route: /anime_edit
+ * @requires: permissions: 1
+ */
+router.get('/anime_edit', (req, res, next) => {
+
+    if(!req.user || req.user.permission !== 1) {
+        res.render('error', {
+            title: "uh oh.",
+            reason: "You don't have permission to view this page!"
+        });
+    } else {
+
+        animequeries.findAllAnime(function(animes) {
+            res.render('index', {
+                title: 'Anime Edit',
+                animes: animes,
+                user: req.user
+            });
+        });
+    }
+});
+
+router.post('/animesubmit', function(req, res) {
+
+    res.end("Anime successfully posted into database.");
 });
 
 /* For submitting a message from the home page */
@@ -110,10 +147,17 @@ router.post('/wallsubmit', function(req, res) {
     wallpostqueries.findAllWallPosts();
 
 
-    res.end("Wall post successfully submitted into database")
+    res.end("Wall post successfully submitted into database.");
 
 }); /// TODO: email myself wall posts for review
 
+/* catches all error pages */
+router.get('*', (req, res, next) => {
+    res.render('error', {
+        title: "uh oh.",
+        reason: "Something went wrong, and I don't know why!"
+    });
+});
 
 // Export to make this externally visible
 module.exports = router;

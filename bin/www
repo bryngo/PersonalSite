@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('blackhawk:server');
+var debug = require('debug')('lightning:server');
 var http = require('http');
 
 /**
