@@ -17,9 +17,6 @@ var animequeries = require('./anime_queries');
  */
 router.get('/', function(req, res, next) {
 
-    if(req.user)
-        console.log(req.user.username);
-
     var condition = {key_type: "IG_access_token"};
 
     keyqueries.filterKey(condition, function(result) {
@@ -112,6 +109,7 @@ router.get('/logout', (req, res, next) => {
  */
 router.get('/anime_edit', (req, res, next) => {
 
+    // user isn't logged in or the user is not an admin
     if(!req.user || req.user.permission !== 1) {
         res.render('error', {
             title: "uh oh.",
@@ -119,8 +117,9 @@ router.get('/anime_edit', (req, res, next) => {
         });
     } else {
 
+        console.log("Finding all anime!");
         animequeries.findAllAnime(function(animes) {
-            res.render('index', {
+            res.render('admin/anime_edit', {
                 title: 'Anime Edit',
                 animes: animes,
                 user: req.user
@@ -130,6 +129,16 @@ router.get('/anime_edit', (req, res, next) => {
 });
 
 router.post('/animesubmit', function(req, res) {
+
+    var info = {
+        'title': req.body.title,
+        'rating': req.body.rating,
+        'fav_char': req.body.fav_char,
+        'review': req.body.review
+    };
+
+    animequeries.insertAnime(info);
+
 
     res.end("Anime successfully posted into database.");
 });

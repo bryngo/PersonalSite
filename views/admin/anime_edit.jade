@@ -9,6 +9,10 @@ html
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='css/main.css')
+    script(src='js/anime_edit.js', type="text/javascript")
+    script(src='js/jquery.min.js')
+
+
   body
     // Seven
     section.wrapper.style1.align-center
@@ -32,6 +36,32 @@ html
             li
               button#submit(type='submit', onclick="animesubmit()", value='Post') Post
 
-
+    section.wrapper.style1.align-center
+      .inner.medium
+        h2 Anime Titles
+        div.table-wrapper
+          table.alt
+            thead
+              tr
+                th Title
+                th Rating
+                th Favorite Character
+                th Review
+                th Modify
+            tbody
+              each anime in animes
+                - var anime_title = anime['title'];
+                - var rating = anime['rating'];
+                - var fav_char = anime['fav_char'];
+                - var review = anime['review'];
+                - var id = anime['_id'];
+                tr
+                  td #{anime_title}
+                  td #{rating}
+                  td #{fav_char}
+                  td #{review}
+                  td
+                    button#anime_delete(type='submit', onclick="anime_delete(\'#{id}\')", value='Post') Delete
+                    button#anime_edit(type='submit', onclick="anime_edit(\'#{id}\')", value='Post') Edit
 
 

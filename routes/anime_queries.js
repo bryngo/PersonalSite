@@ -86,7 +86,10 @@ var findAllAnimeWrapper = function(callback) {
 
         assert.equal(null, err);
         findAllAnime(db, function(results) {
-            client.close();
+
+          console.log("Found " + JSON.stringify(results, null, 1));
+
+          client.close();
             if(callback)
                 callback(results);
         });
