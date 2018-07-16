@@ -3,6 +3,8 @@ var router = express.Router();
 var fs = require('fs');
 var multer = require('multer');
 var mime = require('mime');
+var ObjectID = require('mongodb').ObjectID;
+
 
 const passport = require('passport');
 const Account = require('../models/account');
@@ -109,23 +111,27 @@ router.get('/logout', (req, res, next) => {
  */
 router.get('/anime_edit', (req, res, next) => {
 
-    // user isn't logged in or the user is not an admin
-    if(!req.user || req.user.permission !== 1) {
-        res.render('error', {
-            title: "uh oh.",
-            reason: "You don't have permission to view this page!"
-        });
-    } else {
+    // // user isn't logged in or the user is not an admin
+    // if(!req.user || req.user.permission !== 1) {
+    //     res.render('error', {
+    //         title: "uh oh.",
+    //         reason: "You don't have permission to view this page!"
+    //     });
+    // } else {
 
-        console.log("Finding all anime!");
         animequeries.findAllAnime(function(animes) {
             res.render('admin/anime_edit', {
                 title: 'Anime Edit',
                 animes: animes,
-                user: req.user
+                user: req.user,
+                form_title: req.query.name || '',
+                form_rating: req.query.rating || '',
+                form_fav_char: req.query.fav_char || '',
+                form_review: req.query.review || '',
+                form_id: req.query._id || ''
             });
         });
-    }
+    // }
 });
 
 router.post('/animesubmit', function(req, res) {
@@ -134,13 +140,59 @@ router.post('/animesubmit', function(req, res) {
         'title': req.body.title,
         'rating': req.body.rating,
         'fav_char': req.body.fav_char,
-        'review': req.body.review
+        'review': req.body.review,
     };
 
-    animequeries.insertAnime(info);
+    // if we're updating an existing entry
+    if(req.body._id) {
 
+      let condition = {
+        '_id': ObjectID(req.body._id)
+      };
+
+      animequeries.updateOneAnime(condition, info);
+
+    } else {
+      animequeries.insertAnime(info);
+
+    }
 
     res.end("Anime successfully posted into database.");
+});
+
+router.post('/animedelete', function(req, res) {
+
+  if(!req.body._id) {
+    res.render('error', {
+      title: "uh oh.",
+      reason: "Something went wrong, and I don't know why!"
+    });
+  }
+
+  let condition = {
+    '_id': ObjectID(req.body._id)
+  };
+
+  animequeries.removeOneAnime(condition);
+
+  res.end("Anime successfully removed from the database");
+});
+
+router.post('/animemodify', function(req, res) {
+
+  // no _id passed in for some reason
+  if(!req.body._id) {
+    res.render('error', {
+      title: "uh oh.",
+      reason: "Something went wrong, and I don't know why!"
+    });
+  }
+
+  let condition = ObjectID(req.body._id);
+
+  animequeries.filterAnime(condition, function(anime) {
+      res.end(JSON.stringify(anime));
+    });
 });
 
 /* For submitting a message from the home page */

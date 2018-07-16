@@ -8,8 +8,6 @@ assert = require('assert');
 // Connection url
 var url = 'mongodb://localhost';
 
-
-
 /* ---- Key insertion ---- */
 // Inserts many keys
 var insertKey = function(info, db, callback) {
@@ -29,7 +27,6 @@ var insertKey = function(info, db, callback) {
 
 // Wrapper function to insert data externally
 var insertKeyWrapper = function(info) {
-
 
     MongoClient.connect(url, function(err, client) {
 
@@ -94,7 +91,7 @@ var findAllKeysWrapper = function(callback) {
 
         findAllKeys(db, function(results) {
             client.close();
-            if(callback)
+            iconditionf(callback)
                 callback(results);
         });
     });

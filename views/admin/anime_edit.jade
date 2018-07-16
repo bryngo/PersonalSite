@@ -18,23 +18,23 @@ html
     section.wrapper.style1.align-center
       .inner.medium
         h2 Anime Post
-        form
-          .field.half.first
-            label(for='name') Anime Title
-            input#name(type='text', name='name', value='')
-          .field.half
-            label(for='rating') Rating
-            input#rating(type='text', name='rating', value='')
-          .field.half.first
-            label(for='fav_char') Favorite Character
-            input#fav_char(type='text', name='rating', value='')
-          .field
-            label(for='review') Review
-            p#charcount
-            textarea#review(name='review')
-          ul.actions
-            li
-              button#submit(type='submit', onclick="animesubmit()", value='Post') Post
+          form
+            .field.half.first
+              label(for='name') Anime Title
+              input#name(type='text', name='name', value='#{form_title}')
+            .field.half
+              label(for='rating') Rating
+              input#rating(type='text', name='rating', value='#{form_rating}')
+            .field.half.first
+              label(for='fav_char') Favorite Character
+              input#fav_char(type='text', name='rating', value='#{form_fav_char}')
+            .field
+              label(for='review') Review
+              p#charcount
+              textarea#review(name='review') #{form_review}
+            ul.actions
+              li
+                button#submit(type='submit', onclick="animesubmit(\'#{form_id}\')", value='Post') Post
 
     section.wrapper.style1.align-center
       .inner.medium
@@ -55,6 +55,7 @@ html
                 - var fav_char = anime['fav_char'];
                 - var review = anime['review'];
                 - var id = anime['_id'];
+
                 tr
                   td #{anime_title}
                   td #{rating}
@@ -62,6 +63,6 @@ html
                   td #{review}
                   td
                     button#anime_delete(type='submit', onclick="anime_delete(\'#{id}\')", value='Post') Delete
-                    button#anime_edit(type='submit', onclick="anime_edit(\'#{id}\')", value='Post') Edit
+                    button#anime_edit(type='submit', onclick="anime_modify(\'#{id}\')", value='Post') Modify
 
 

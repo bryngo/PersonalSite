@@ -46,7 +46,9 @@ var filterAnime = function(condition, db, callback) {
 
     // Find some documents
     collection.find(condition).toArray(function(err, docs) {
-        assert.equal(err, null);
+      assert.equal(err, null);
+
+      if(callback)
         callback(docs);
     });
 };
@@ -75,6 +77,8 @@ var findAllAnime = function(db, callback) {
 
     collection.find({}).toArray(function(err, docs) {
         assert.equal(err, null);
+
+
         callback(docs);
     });
 };
@@ -87,8 +91,6 @@ var findAllAnimeWrapper = function(callback) {
         assert.equal(null, err);
         findAllAnime(db, function(results) {
 
-          console.log("Found " + JSON.stringify(results, null, 1));
-
           client.close();
             if(callback)
                 callback(results);
@@ -96,8 +98,67 @@ var findAllAnimeWrapper = function(callback) {
     });
 };
 
+var updateOneAnime = function(condition, newField, db, callback) {
+
+  var collection = db.collection('anime');
+
+  collection.updateOne(
+    condition,
+    {$set : newField},
+    function(err, result) {
+
+      assert.equal(err, null);
+      console.log("Entry successfully updated");
+
+      callback(result);
+    });
+
+};
+
+var updateOneAnimeWrapper = function(condition, newField) {
+  MongoClient.connect(url, function(err, client) {
+
+    var db = client.db('Lightning');
+
+    assert.equal(null, err);
+
+    updateOneAnime(condition, newField, db, function() {
+      client.close();
+    });
+
+  });
+};
+
+var removeOneAnime = function(condition, db, callback) {
+
+  var collection = db.collection('anime');
+
+  collection.remove(condition, function(err, results) {
+    assert.equal(err, null);
+
+    if(callback)
+      callback(results);
+  })
+
+};
+
+var removeOneAnimeWrapper = function(condition) {
+  MongoClient.connect(url, function(err, client) {
+
+    var db = client.db('Lightning');
+
+    assert.equal(null, err);
+
+    removeOneAnime(condition, db, function() {
+      client.close();
+    });
+
+  });
+};
 
 // so we can externally call these function
-exports.insertAnime = insertAnimeWrapper;
-exports.filterAnime = filterAnimeWrapper;
-exports.findAllAnime = findAllAnimeWrapper;
+exports.insertAnime    = insertAnimeWrapper;
+exports.filterAnime    = filterAnimeWrapper;
+exports.findAllAnime   = findAllAnimeWrapper;
+exports.updateOneAnime = updateOneAnimeWrapper;
+exports.removeOneAnime = removeOneAnimeWrapper;
