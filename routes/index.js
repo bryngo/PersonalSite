@@ -12,7 +12,8 @@ const Account = require('../models/account');
 // import query file(s)
 var keyqueries = require('./keyqueries');
 var wallpostqueries = require('./wallpostqueries');
-var animequeries = require('./anime_queries');
+var animequeries = require('./animeQueries');
+var animeEpQueries = require('./animeEpQueries');
 
 /**
  * @route: /
@@ -106,10 +107,10 @@ router.get('/logout', (req, res, next) => {
 });
 
 /**
- * @route: /anime_edit
+ * @route: /animeEdit
  * @requires: permissions: 1
  */
-router.get('/anime_edit', (req, res, next) => {
+router.get('/animeEdit', (req, res, next) => {
 
     // // user isn't logged in or the user is not an admin
     // if(!req.user || req.user.permission !== 1) {
@@ -119,8 +120,9 @@ router.get('/anime_edit', (req, res, next) => {
     //     });
     // } else {
 
-        animequeries.findAllAnime(function(animes) {
-            res.render('admin/anime_edit', {
+
+  animequeries.findAllAnime(function(animes) {
+            res.render('admin/animeEdit', {
                 title: 'Anime Edit',
                 animes: animes,
                 user: req.user,
@@ -193,6 +195,63 @@ router.post('/animemodify', function(req, res) {
   animequeries.filterAnime(condition, function(anime) {
       res.end(JSON.stringify(anime));
     });
+});
+
+/**
+ * @route: /animeEpEdit
+ * @requires: permission: 1
+ */
+router.get('/animeEpEdit', function(req, res) {
+
+  // // user isn't logged in or the user is not an admin
+  // if(!req.user || req.user.permission !== 1) {
+  //     res.render('error', {
+  //         title: "uh oh.",
+  //         reason: "You don't have permission to view this page!"
+  //     });
+  // } else {
+
+  let condition = ObjectID(req.query.parentId);
+  let parentAnime = {
+    'parentId' : req.query.parentId
+  };
+
+  animequeries.filterAnime(condition, function(anime) {
+    animeEpQueries.filterAnimeEpisode(parentAnime, function(episodes) {
+        res.render('admin/animeEpEdit', {
+        title: 'Anime Episode Edit',
+        animeParent: anime[0],
+        parentId: req.query.parentId,
+        episodes: episodes,
+      });
+    });
+  });
+
+  // }
+
+});
+
+/**
+ * @route /animeEpSubmit
+ *
+ */
+router.post('/animeEpSubmit', function(req, res) {
+
+  var info = {
+    'epNumber': parseInt(req.body.epNumber),
+    'epRating': req.body.epRating,
+    'epReview': req.body.epReview,
+    'parentId': req.body.parentId,
+  };
+
+  animeEpQueries.insertAnimeEpisode(info);
+
+  res.end('Anime Episode Successfully uploaded to db');
+
+});
+
+router.post('/animeEpDelete', function(req, res) {
+
 });
 
 /* For submitting a message from the home page */

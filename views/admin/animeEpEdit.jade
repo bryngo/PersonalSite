@@ -1,0 +1,68 @@
+doctype html
+//
+  Story by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+html
+  head
+    title #{title}
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='css/main.css')
+    script(src='js/animeEdit.js', type="text/javascript")
+    script(src='js/jquery.min.js')
+
+
+  body
+    // Seven
+    section.wrapper.style1.align-center
+      .inner.medium
+
+        // the literal object ID
+        // - var rawParentId = animeParent['_id'].valeOf();
+        h2 Anime Episode Post for #{animeParent['title']}
+          form
+            .field.half.first
+              label(for='epNumber') Episode Number
+              input#epNumber(type='text', name='name', value='')
+            .field.half
+              label(for='epRating') Episode Rating
+              input#epRating(type='text', name='rating', value='')
+            .field
+              label(for='epReview') Episode Review
+              p#charcount
+              textarea#epReview(name='review')
+            ul.actions
+              li
+                //button#submit(type='submit', onclick="animeEpSubmit(\'#{rawParentId}\')" value='Post') Post
+                button#submit(type='submit', onclick="animeEpSubmit(\'#{parentId}\')", value='Post') Post
+
+
+    section.wrapper.style1.align-center
+      .inner.medium
+        h2 Anime Titles
+        div.table-wrapper
+          table.alt
+            thead
+              tr
+                th Episode Number
+                th Rating (1 - 10)
+                th Review
+                th Modifiers
+            tbody
+              each ep in episodes
+                - var epNumber = ep['epNumber'];
+                - var epRating = ep['epRating'];
+                - var epReview = ep['epReview'];
+                - var epId     = ep['_id'];
+
+                tr
+                  td #{epNumber}
+                  td #{epRating}
+                  td #{epReview}
+                  td
+                    button#animeDelete(type='submit', onclick="anime_delete(\'#{id}\')", value='Post') Delete
+                    button#animeEdit(type='submit', onclick="anime_modify(\'#{id}\')", value='Post') Modify
+                    button#animeAddEp(type='submit', onclick="anime_add_ep(\'#{id}\')", value='Post') Add Episode
+
+
