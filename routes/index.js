@@ -14,23 +14,24 @@ var keyqueries = require('./keyqueries');
 var wallpostqueries = require('./wallpostqueries');
 var animequeries = require('./animeQueries');
 var animeEpQueries = require('./animeEpQueries');
+var variableQueries = require('./variablesQueries');
 
 /**
  * @route: /
  */
 router.get('/', function(req, res, next) {
 
-    var condition = {key_type: "IG_access_token"};
+  var condition = {key_type: "IG_access_token"};
 
     keyqueries.filterKey(condition, function(result) {
-        wallpostqueries.findAllWallPosts(function(wallresult) {
-            res.render('index', {
-                title: 'Home',
-                keys: result,
-                wallposts: wallresult,
-                user: req.user
-            });
+      wallpostqueries.findAllWallPosts(function(wallresult) {
+        res.render('index', {
+          title: 'Home',
+          keys: result,
+          wallposts: wallresult,
+          user: req.user,
         });
+      });
     });
 });
 
@@ -39,8 +40,18 @@ router.get('/', function(req, res, next) {
  */
 router.get('/blog', function(req, res, next) {
 
+  variableQueries.getVariable('blogCategories', function(result) {
+
+    console.log(Object.keys(result));
+
     res.render('blog', {
-        title: 'Blog'});
+      title: 'Blog',
+
+      // for some reason, Object.keys doesn't really work in the jade file :(
+      blogCategories: Object.keys(result),
+      blogDescriptions: result
+    });
+  });
 });
 
 /**

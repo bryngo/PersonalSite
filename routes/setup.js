@@ -5,8 +5,10 @@
 // main function that handles the query part of input
 // function queryServer(request, response, search)
 
-//Make queryServer function visible outside this module
-//exports.queryServer = queryServer;
+/*
+This file is used for run-onces. Eventually, it should be used to set up all necessary data to start the website off
+
+ */
 
 var MongoClient = require('mongodb').MongoClient;
 assert = require('assert');
@@ -54,16 +56,50 @@ var findAllKeys = function(db, callback) {
 };
 
 
+/* --- Variable Filter --- */
+var getVariable = function(variable, db, callback) {
+  var collection = db.collection('variables');
+
+  collection.find({}).toArray(function(err, vars) {
+    assert.equal(err, null);
+    callback(vars[0]);
+  });
+
+};
+
+var insertVariable = function(info, db, callback) {
+  var collection = db.collection('variables');
+
+  collection.find({}).toArray(function(err, docs) {
+
+    collection.updateOne(
+      docs[0],
+      {$set: info},
+      function(err, result) {
+        console.log("Updated results");
+        callback(result);
+      });
+  });
+};
+
 // initial set up.`node setup.js` to run
 MongoClient.connect(url, function(err, client) {
 
     var db = client.db('Lightning');
 
-    clearChest(db, function() {
-        insertKey(db, function() {
-            findAllKeys(db, function() {
-                client.close();
-            });
-        });
+    var cat = 'blogCategories';
+
+    var blogCategories = {
+      "blogCategories":
+        {'miscellaneous': 'misc updated',
+        'technology' : 'tech description',
+        'food': 'food description',
+        'anime' : 'anime description',
+        'movies' : 'movie description',
+        'TV shows' : 'tv show description'}
+    };
+
+    insertVariable(blogCategories, db, function(){
+      client.close();
     });
 });

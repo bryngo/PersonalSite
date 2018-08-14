@@ -2,19 +2,13 @@
 // Header
 header#header
   h1
-    a(href='#') Blog
+    a(href='/') Home
   nav.links
     ul
-      li
-        a(href='#') Lorem
-      li
-        a(href='#') Ipsum
-      li
-        a(href='#') Feugiat
-      li
-        a(href='#') Tempus
-      li
-        a(href='#') Adipiscing
+      each blogCategory in blogCategories
+        - var category = blogCategory;
+        li
+          a(href='#') #{category}
   nav.main
     ul
       li.search
@@ -32,19 +26,12 @@ section#menu
   // Links
   section
     ul.links
-      li
-        a(href='#')
-          h3 Anime Review List
-          p Feugiat tempus veroeros dolor
-      li
-        a(href='#')
-          h3 Movie Review List
-          p Sed vitae justo condimentum
-      li
-        a(href='#')
-          h3 TV Show Review List
-          p Phasellus sed ultricies mi congue
-      li
-        a(href='#')
-          h3 Etiam sed consequat
-          p Porta lectus amet ultricies
+      - var categoryIndex = 0;
+      each blogCategory in blogCategories
+        - var category = blogCategory;
+        - var description = blogDescriptions[category];
+        - categoryIndex += 1;
+        li
+          a(href='#')
+            h3 #{category}
+            p #{description}
