@@ -102,6 +102,7 @@ var updateOneAnimeEpisode = function(condition, newField, db, callback) {
 
   var collection = db.collection('anime_ep');
 
+  // only overwrites the passed in fields
   collection.updateOne(
     condition,
     {$set : newField},

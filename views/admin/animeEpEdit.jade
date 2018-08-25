@@ -24,18 +24,18 @@ html
           form
             .field.half.first
               label(for='epNumber') Episode Number
-              input#epNumber(type='text', name='name', value='')
+              input#epNumber(type='text', name='name', value='#{form_epNumber}')
             .field.half
               label(for='epRating') Episode Rating
-              input#epRating(type='text', name='rating', value='')
+              input#epRating(type='text', name='rating', value='#{form_epRating}')
             .field
               label(for='epReview') Episode Review
               p#charcount
-              textarea#epReview(name='review')
+              textarea#epReview(name='review') #{form_epReview}
             ul.actions
               li
                 //button#submit(type='submit', onclick="animeEpSubmit(\'#{rawParentId}\')" value='Post') Post
-                button#submit(type='submit', onclick="animeEpSubmit(\'#{parentId}\')", value='Post') Post
+                button#submit(type='submit', onclick="animeEpSubmit(\'#{parentId}\', \'#{episodeId}\')", value='Post') Post
 
 
     section.wrapper.style1.align-center
@@ -61,8 +61,7 @@ html
                   td #{epRating}
                   td #{epReview}
                   td
-                    button#animeDelete(type='submit', onclick="anime_delete(\'#{id}\')", value='Post') Delete
-                    button#animeEdit(type='submit', onclick="anime_modify(\'#{id}\')", value='Post') Modify
-                    button#animeAddEp(type='submit', onclick="anime_add_ep(\'#{id}\')", value='Post') Add Episode
+                    button#animeDelete(type='submit', onclick="animeEpDelete(\'#{epId}\', \'#{parentId}\')", value='Post') Delete
+                    button#animeEdit(type='submit', onclick="animeEpModify(\'#{epId}\')", value='Post') Modify
 
 

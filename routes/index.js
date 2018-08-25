@@ -61,6 +61,7 @@ router.get('/anime', function(req, res, next) {
 
       console.log(Object.keys(blogCategories));
 
+
       res.render('blogPosts/animeLanding', {
         title             : 'Anime Reviews',
         animeKey          : 'anime',
@@ -90,20 +91,20 @@ router.get('/register', function(req, res) {
 });
 
 router.post('/register', (req, res, next) => {
-    Account.register(new Account({ username : req.body.username, permission : 0, email: req.body.email}), req.body.password, (err, account) => {
-        if (err) {
-            return res.render('register', { error : err.message });
-        }
+  Account.register(new Account({ username : req.body.username, permission : 0, email: req.body.email}), req.body.password, (err, account) => {
+    if (err) {
+      return res.render('register', { error : err.message });
+    }
 
-        passport.authenticate('local')(req, res, () => {
-            req.session.save((err) => {
-                if (err) {
-                    return next(err);
-                }
-                res.redirect('/');
-            });
-        });
+    passport.authenticate('local')(req, res, () => {
+      req.session.save((err) => {
+        if (err) {
+          return next(err);
+        }
+        res.redirect('/');
+      });
     });
+  });
 });
 
 /**
@@ -167,48 +168,35 @@ router.get('/animeEdit', (req, res, next) => {
 
 router.post('/animesubmit', function(req, res) {
 
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth() + 1;
-    var yyyy = today.getFullYear();
+  var today = getTodayDate();
 
-    if(dd<10) {
-       dd = '0'+dd
-    }
+  // TODO: Implement the number of likes per blog post
+  var info = {
+    'title'         : req.body.title,
+    'rating'        : req.body.rating,
+    'fav_char'      : req.body.fav_char,
+    'review'        : req.body.review,
+    'last_modified' : today,
+    'wallpaper'     : req.body.wallpaper,
+    'blog_tags'     : ['anime'],
+  };
 
-    if(mm<10) {
-        mm = '0'+mm
-    }
+  // if we're updating an existing entry
+  if(req.body._id) {
 
-    today = mm + '/' + dd + '/' + yyyy;
-
-    // TODO: Implement the number of likes per blog post
-    var info = {
-        'title'         : req.body.title,
-        'rating'        : req.body.rating,
-        'fav_char'      : req.body.fav_char,
-        'review'        : req.body.review,
-        'last_modified' : today,
-        'wallpaper'     : req.body.wallpaper,
-        'blog_tags'     : ['anime'],
+    let condition = {
+      '_id': ObjectID(req.body._id)
     };
 
-    // if we're updating an existing entry
-    if(req.body._id) {
+    animequeries.updateOneAnime(condition, info);
 
-      let condition = {
-        '_id': ObjectID(req.body._id)
-      };
+  } else {
 
-      animequeries.updateOneAnime(condition, info);
+    animequeries.insertAnime(info);
 
-    } else {
+  }
 
-      animequeries.insertAnime(info);
-
-    }
-
-    res.end("Anime successfully posted into database.");
+  res.end("Anime successfully posted into database.");
 });
 
 router.post('/animedelete', function(req, res) {
@@ -274,10 +262,14 @@ router.get('/animeEpEdit', function(req, res) {
   animequeries.filterAnime(condition, function(anime) {
     animeEpQueries.filterAnimeEpisode(parentAnime, function(episodes) {
         res.render('admin/animeEpEdit', {
-        title: 'Anime Episode Edit',
-        animeParent: anime[0],
-        parentId: req.query.parentId,
-        episodes: episodes,
+        title         : 'Anime Episode Edit',
+        animeParent   : anime[0],
+        parentId      : req.query.parentId,
+        episodeId     : req.query.episodeId || '',
+        form_epNumber : req.query.epNumber || '',
+        form_epRating : req.query.epRating || '',
+        form_epReview : req.query.epReview || '',
+        episodes      : episodes,
       });
     });
   });
@@ -292,21 +284,67 @@ router.get('/animeEpEdit', function(req, res) {
  */
 router.post('/animeEpSubmit', function(req, res) {
 
+  var today = getTodayDate();
+
   var info = {
-    'epNumber': parseInt(req.body.epNumber),
-    'epRating': req.body.epRating,
-    'epReview': req.body.epReview,
-    'parentId': req.body.parentId,
+    'epNumber'      : parseInt(req.body.epNumber),
+    'epRating'      : req.body.epRating,
+    'epReview'      : req.body.epReview,
+    'parentId'      : req.body.parentId,
+    'last_modified' : today
   };
 
-  animeEpQueries.insertAnimeEpisode(info);
+  // if we're updating an existing entry
+  if(req.body.episodeId) {
+
+    let condition = {
+      '_id': ObjectID(req.body.episodeId)
+    };
+
+    animeEpQueries.updateOneAnimeEpisode(condition, info);
+
+  } else {
+    animeEpQueries.insertAnimeEpisode(info);
+
+  }
 
   res.end('Anime Episode Successfully uploaded to db');
-
 });
 
 router.post('/animeEpDelete', function(req, res) {
 
+  if(!req.body.episodeId) {
+    res.render('error', {
+      title: "uh oh.",
+      reason: "Something went wrong, and I don't know why!"
+    });
+  }
+
+  let condition = {
+    '_id': ObjectID(req.body.episodeId)
+  };
+
+
+  animeEpQueries.removeAnimeEpisode(condition);
+
+  res.end("Anime episode successfully removed from the database");
+
+});
+
+router.post('/animeEpModify', function(req, res) {
+  // no _id passed in for some reason
+  if(!req.body.episodeId) {
+    res.render('error', {
+      title: "uh oh.",
+      reason: "Something went wrong, and I don't know why!"
+    });
+  }
+
+  let condition = ObjectID(req.body.episodeId);
+
+  animeEpQueries.filterAnimeEpisode(condition, function(animeEp) {
+    res.end(JSON.stringify(animeEp));
+  });
 });
 
 /* For submitting a message from the home page */
@@ -333,6 +371,24 @@ router.get('*', (req, res, next) => {
         reason: "Something went wrong, and I don't know why!"
     });
 });
+
+function getTodayDate() {
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1;
+  var yyyy = today.getFullYear();
+
+  if(dd<10) {
+    dd = '0'+dd
+  }
+
+  if(mm<10) {
+    mm = '0'+mm
+  }
+
+  today = mm + '/' + dd + '/' + yyyy;
+  return today;
+}
 
 // Export to make this externally visible
 module.exports = router;

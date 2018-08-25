@@ -104,6 +104,8 @@ function animeModify(anime_id) {
  */
 function animeEpSubmitRedirect(anime_id) {
 
+  sessionStorage.setItem('parentId', anime_id);
+
   window.location = '/animeEpEdit?parentId=' + anime_id;
 
 } // called from the animeEdit page, redirects user to animeEpEdit page
@@ -112,7 +114,7 @@ function animeEpSubmitRedirect(anime_id) {
  *
  * @param ObjectId parentId
  */
-function animeEpSubmit(parentId) {
+function animeEpSubmit(parentId, episodeId) {
 
   var epNumber = $('#epNumber').val().trim();
   var epRating = $('#epRating').val().trim();
@@ -129,7 +131,8 @@ function animeEpSubmit(parentId) {
         'epNumber' : epNumber,
         'epRating' : epRating,
         'epReview' : epReview,
-        'parentId' : parentId
+        'parentId' : parentId,
+        'episodeId': episodeId
       },
       success: function (resp) {
         $('#epNumber').val('');
@@ -147,21 +150,21 @@ function animeEpSubmit(parentId) {
  *
  * @param ObjectID animeEpId
  */
-function animeEpDelete(animeEpId) {
+function animeEpDelete(animeEpId, parentId) {
 
   $.ajax({
     type: "POST",
-    url: '/animedelete',
+    url: '/animeEpDelete',
     data: {
-      '_id': anime_id
+      'episodeId': animeEpId
     },
     success: function(resp) {
 
-      window.location = '/animeEdit';
+      window.location = '/animeEpEdit?parentId=' + parentId;
     }
   });
 
-  console.log("DELETING: " + anime_id);
+  console.log("DELETING: " + animeEpId);
 
 }
 
@@ -170,5 +173,31 @@ function animeEpDelete(animeEpId) {
  * @param ObjectId animeEpId
  */
 function animeEpModify(animeEpId) {
+
+  $.ajax({
+    type: "POST",
+    url: '/animeEpModify',
+    data: {
+      'episodeId': animeEpId
+    },
+    success: function(resp) {
+
+      var jsonResp = JSON.parse(resp);
+
+      $('#epNumber').val('');
+      $('#epRating').val('');
+      $('#epReview').val('');
+
+      window.location = '/animeEpEdit?parentId=' + sessionStorage.getItem('parentId') +
+        '&epNumber='  + jsonResp[0].epNumber +
+        '&epRating='  + jsonResp[0].epRating +
+        '&epReview='  + jsonResp[0].epReview +
+        '&episodeId=' + jsonResp[0]._id;
+    }
+
+  });
+
+  console.log("Modifying anime episode: " + animeEpId);
+
 
 }
