@@ -28,6 +28,9 @@ html
             .field.half.first
               label(for='fav_char') Favorite Character
               input#fav_char(type='text', name='rating', value='#{form_fav_char}')
+            .field.half.first
+              label(for='wallpaper') Wallpaper
+              input#wallpaper(type='text', name='wallpaper', value='#{form_wallpaper}')
             .field
               label(for='review') Review
               p#charcount
@@ -47,6 +50,7 @@ html
                 th Rating
                 th Favorite Character
                 th Review
+                td Wallpaper Path
                 th Modify
             tbody
               each anime in animes
@@ -55,15 +59,18 @@ html
                 - var fav_char = anime['fav_char'];
                 - var review = anime['review'];
                 - var id = anime['_id'];
-
+                - var wallpaper = anime['wallpaper'];
                 tr
                   td #{anime_title}
                   td #{rating}
                   td #{fav_char}
                   td #{review}
+                  td #{wallpaper}
+                    img(src='#{wallpaper}', alt='')
+
                   td
                     button#animeDelete(type='submit', onclick="animeDelete(\'#{id}\')", value='Post') Delete
-                    button#animeEdit(type='submit', onclick="animeModify(\'#{id}\')", value='Post') Modify
+                    button#animeEdit(type='submit', target='_blank', onclick="animeModify(\'#{id}\')", value='Post') Modify
                     button#animeAddEp(type='submit', onclick="animeEpSubmitRedirect(\'#{id}\')", value='Get') Add Episode
 
 

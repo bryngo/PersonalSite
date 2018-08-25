@@ -129,7 +129,7 @@ var updateOneAnimeEpisodeWrapper = function(condition, newField) {
   });
 };
 
-var removeOneAnimeEpisode = function(condition, db, callback) {
+var removeAnimeEpisode = function(condition, db, callback) {
 
   var collection = db.collection('anime_ep');
 
@@ -142,14 +142,14 @@ var removeOneAnimeEpisode = function(condition, db, callback) {
 
 };
 
-var removeOneAnimeEpisodeWrapper = function(condition) {
+var removeAnimeEpisodeWrapper = function(condition) {
   MongoClient.connect(url, function(err, client) {
 
     var db = client.db('Lightning');
 
     assert.equal(null, err);
 
-    removeOneAnimeEpisode(condition, db, function() {
+    removeAnimeEpisode(condition, db, function() {
       client.close();
     });
 
@@ -161,4 +161,4 @@ exports.insertAnimeEpisode    = insertAnimeEpisodeWrapper;
 exports.filterAnimeEpisode    = filterAnimeEpisodeWrapper;
 exports.findAllAnimeEpisode   = findAllAnimeEpisodeWrapper;
 exports.updateOneAnimeEpisode = updateOneAnimeEpisodeWrapper;
-exports.removeOneAnimeEpisode = removeOneAnimeEpisodeWrapper;
+exports.removeAnimeEpisode    = removeAnimeEpisodeWrapper;

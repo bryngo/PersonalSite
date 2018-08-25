@@ -91,7 +91,7 @@ var findAllKeysWrapper = function(callback) {
 
         findAllKeys(db, function(results) {
             client.close();
-            iconditionf(callback)
+            if(callback)
                 callback(results);
         });
     });

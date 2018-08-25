@@ -1,0 +1,85 @@
+doctype html
+//
+  Future Imperfect by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+html
+  head
+    title #{title} 
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='css/blog.css')
+
+  body
+  // Wrapper
+  #wrapper
+    include blog_header
+    // Main
+    #main
+      // Post
+      //
+      each anime in animes
+        - var animeTitle = anime['title'];
+        - var review = anime['review'];
+        - var wallpaper = anime['wallpaper'];
+        - var lastModified = anime['last_modified'];
+        article.post
+          header
+            .title
+              h2
+                a(href='#')
+                    p #{animeTitle}
+            .meta
+              time.published(datetime='#{lastModified}') Last Modified #{lastModified}
+          a.image.featured(href='#')
+            img(src='#{wallpaper}', alt='')
+          p #{review}
+          footer
+            ul.actions
+              li
+                a.button.big(href='/blog/coursehero') Continue Reading
+            //ul.stats
+            //  li
+            //    a(href='#') General
+            //  li
+            //    a.icon.fa-heart(href='#') 42
+            //  li
+            //    a.icon.fa-comment(href='#') test
+      // Pagination
+      ul.actions.pagination
+        li
+          a.disabled.button.big.previous(href='') Previous Page
+        li
+          a.button.big.next(href='#') Next Page
+    // Sidebar
+    section#sidebar
+      // Intro
+      section#intro
+          a.logo(href='#')
+              i.icon.fas.fa-pencil-square.fa-2x
+          header
+          h2 #{ title }
+          p
+            | #{blogDescriptions[animeKey]};
+
+      section.blurb
+        h2 About
+        p
+            | Hey there! My name is Bryan. I'm
+            | currently a third year undergrad @ UCD studying Computer Science
+            | and Engineering. I also like snowboarding, photographing, and
+            | hiking! Check out my links at the bottom of this page.
+
+        include blog_footer
+
+        p.copyright
+          | &copy; Untitled. Design: 
+          a(href='http://html5up.net') HTML5 UP
+          // | . Images: 
+          // a(href='http://unsplash.com') Unsplash
+          // | .
+        // Scripts
+        script(src='js/jquery.min.js')
+        script(src='js/skel.min.js')
+        script(src='js/util.js')
+        script(src='js/blog.js')

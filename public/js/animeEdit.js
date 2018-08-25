@@ -8,9 +8,11 @@ function animeSubmit(anime_id) {
   var rating = $('#rating').val().trim();
   var fav_char = $('#fav_char').val().trim();
   var review = $('#review').val().trim();
+  var wallpaper = $('#wallpaper').val().trim();
+
 
   // make sure all the fields are fields are filled out
-  if (title != '' && rating != '' && fav_char != '' && review != '') {
+  if (title != '' && rating != '' && fav_char != '' && review != '' && wallpaper != '') {
 
     // call the submit function
     $.ajax({
@@ -21,13 +23,15 @@ function animeSubmit(anime_id) {
         'rating'  : rating,
         'fav_char': fav_char,
         'review'  : review,
-        '_id'     : anime_id
+        '_id'     : anime_id,
+        'wallpaper': wallpaper
       },
       success: function (resp) {
         $('#name').val('');
         $('#rating').val('');
         $('#fav_char').val('');
         $('#review').val('');
+        $('#wallpaper').val('');
         window.location = '/animeEdit';
       }
     });
@@ -78,13 +82,16 @@ function animeModify(anime_id) {
       $('#rating').val('');
       $('#fav_char').val('');
       $('#review').val('');
+      $('#wallpaper').val('');
 
       window.location = '/animeEdit?name=' + jsonResp[0].title +
         '&rating=' + jsonResp[0].rating +
         '&fav_char=' + jsonResp[0].fav_char +
         '&review=' + jsonResp[0].review +
-        '&_id=' + jsonResp[0]._id;
+        '&_id=' + jsonResp[0]._id +
+        '&wallpaper=' + jsonResp[0].wallpaper;
     }
+
   });
 
   console.log("Modifying: " + anime_id);

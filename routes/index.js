@@ -44,7 +44,7 @@ router.get('/blog', function(req, res, next) {
 
     console.log(Object.keys(result));
 
-    res.render('blog', {
+    res.render('blogPosts/blog', {
       title: 'Blog',
 
       // for some reason, Object.keys doesn't really work in the jade file :(
@@ -54,12 +54,30 @@ router.get('/blog', function(req, res, next) {
   });
 });
 
+router.get('/anime', function(req, res, next) {
+
+  animequeries.findAllAnime(function (animes) {
+    variableQueries.getVariable('blogCategories', function (blogCategories) {
+
+      console.log(Object.keys(blogCategories));
+
+      res.render('blogPosts/animeLanding', {
+        title             : 'Anime Reviews',
+        animeKey          : 'anime',
+        blogCategories    : Object.keys(blogCategories),
+        blogDescriptions  : blogCategories,
+        animes            : animes
+      });
+    });
+  });
+});
+
 /**
  * @route: /coursehero
  */
 router.get('/coursehero', function(req, res, next) {
 
-   res.render('blogposts/coursehero', {
+   res.render('blogPosts/coursehero', {
        title: 'Course Hero'});
 
 });
@@ -96,25 +114,25 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/login', passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }), (req, res, next) => {
-    req.session.save((err) => {
-        if (err) {
-            return next(err);
-        }
-        res.redirect('/');
-    });
+  req.session.save((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/');
+  });
 });
 
 /**
  * @route: /logout
  */
 router.get('/logout', (req, res, next) => {
-    req.logout();
-    req.session.save((err) => {
-        if (err) {
-            return next(err);
-        }
-        res.redirect('/');
-    });
+  req.logout();
+  req.session.save((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/');
+  });
 });
 
 /**
@@ -133,27 +151,46 @@ router.get('/animeEdit', (req, res, next) => {
 
 
   animequeries.findAllAnime(function(animes) {
-            res.render('admin/animeEdit', {
-                title: 'Anime Edit',
-                animes: animes,
-                user: req.user,
-                form_title: req.query.name || '',
-                form_rating: req.query.rating || '',
-                form_fav_char: req.query.fav_char || '',
-                form_review: req.query.review || '',
-                form_id: req.query._id || ''
-            });
-        });
-    // }
+    res.render('admin/animeEdit', {
+      title           : 'Anime Edit',
+      animes          : animes,
+      user            : req.user,
+      form_title      : req.query.name || '',
+      form_rating     : req.query.rating || '',
+      form_fav_char   : req.query.fav_char || '',
+      form_review     : req.query.review || '',
+      form_id         : req.query._id || '',
+      form_wallpaper  : req.query.wallpaper || ''
+    });
+  });
 });
 
 router.post('/animesubmit', function(req, res) {
 
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1;
+    var yyyy = today.getFullYear();
+
+    if(dd<10) {
+       dd = '0'+dd
+    }
+
+    if(mm<10) {
+        mm = '0'+mm
+    }
+
+    today = mm + '/' + dd + '/' + yyyy;
+
+    // TODO: Implement the number of likes per blog post
     var info = {
-        'title': req.body.title,
-        'rating': req.body.rating,
-        'fav_char': req.body.fav_char,
-        'review': req.body.review,
+        'title'         : req.body.title,
+        'rating'        : req.body.rating,
+        'fav_char'      : req.body.fav_char,
+        'review'        : req.body.review,
+        'last_modified' : today,
+        'wallpaper'     : req.body.wallpaper,
+        'blog_tags'     : ['anime'],
     };
 
     // if we're updating an existing entry
@@ -166,6 +203,7 @@ router.post('/animesubmit', function(req, res) {
       animequeries.updateOneAnime(condition, info);
 
     } else {
+
       animequeries.insertAnime(info);
 
     }
@@ -186,7 +224,13 @@ router.post('/animedelete', function(req, res) {
     '_id': ObjectID(req.body._id)
   };
 
+  let parentCondition = {
+    'parentId' : req.body._id
+  };
+
   animequeries.removeOneAnime(condition);
+  animeEpQueries.removeAnimeEpisode(parentCondition);
+
 
   res.end("Anime successfully removed from the database");
 });
