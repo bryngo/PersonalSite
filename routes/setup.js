@@ -96,12 +96,12 @@ MongoClient.connect(url, function(err, client) {
 
     var blogCategories = {
       "blogCategories":
-        {'miscellaneous': 'misc updated',
-        'technology' : 'tech description',
-        'food': 'food description',
-        'anime' : 'anime description',
-        'movies' : 'movie description',
-        'tv-shows' : 'tv show description'}
+        {'miscellaneous'  : 'Just some random stuff',
+        'technology'      : 'how 2 code',
+        'food'            : 'Is food porn nsfw?',
+        'anime'           : 'Watch me become a weeb',
+        'movies'          : 'Couple minutes of writing for hours of entertainment.',
+        'tv-shows'        : 'Binge worthy, for sure.'}
     };
 
     insertVariable(blogCategories, db, function(){

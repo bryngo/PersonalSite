@@ -142,14 +142,12 @@ router.get('/logout', (req, res, next) => {
  */
 router.get('/animeEdit', (req, res, next) => {
 
-    // // user isn't logged in or the user is not an admin
-    // if(!req.user || req.user.permission !== 1) {
-    //     res.render('error', {
-    //         title: "uh oh.",
-    //         reason: "You don't have permission to view this page!"
-    //     });
-    // } else {
-
+  if(!isAdmin(req)) {
+    res.render('error', {
+      title: "uh oh.",
+      reason: "You don't have permission to view this page!"
+    });
+  }
 
   animequeries.findAllAnime(function(animes) {
     res.render('admin/animeEdit', {
@@ -246,13 +244,12 @@ router.post('/animemodify', function(req, res) {
  */
 router.get('/animeEpEdit', function(req, res) {
 
-  // // user isn't logged in or the user is not an admin
-  // if(!req.user || req.user.permission !== 1) {
-  //     res.render('error', {
-  //         title: "uh oh.",
-  //         reason: "You don't have permission to view this page!"
-  //     });
-  // } else {
+  if(!isAdmin(req)) {
+    res.render('error', {
+      title: "uh oh.",
+      reason: "You don't have permission to view this page!"
+    });
+  }
 
   let condition = ObjectID(req.query.parentId);
   let parentAnime = {
@@ -278,10 +275,6 @@ router.get('/animeEpEdit', function(req, res) {
 
 });
 
-/**
- * @route /animeEpSubmit
- *
- */
 router.post('/animeEpSubmit', function(req, res) {
 
   var today = getTodayDate();
@@ -332,8 +325,9 @@ router.post('/animeEpDelete', function(req, res) {
 });
 
 router.post('/animeEpModify', function(req, res) {
+
   // no _id passed in for some reason
-  if(!req.body.episodeId) {
+  if(!req.body.episodeId || !isAdmin(req)) {
     res.render('error', {
       title: "uh oh.",
       reason: "Something went wrong, and I don't know why!"
@@ -389,6 +383,18 @@ function getTodayDate() {
   today = mm + '/' + dd + '/' + yyyy;
   return today;
 }
+
+/**
+ * Returns true if a user is an admin
+ * @param req
+ * @returns {boolean}
+ */
+function isAdmin(req) {
+
+  return !(!req.user || req.user.permission !== 1);
+
+}
+
 
 // Export to make this externally visible
 module.exports = router;
