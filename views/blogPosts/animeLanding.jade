@@ -23,21 +23,22 @@ html
         - var review = anime['review'];
         - var wallpaper = anime['wallpaper'];
         - var lastModified = anime['last_modified'];
+        - var id = anime['_id'];
         article.post
           header
             .title
               h2
-                a(href='#')
+                a(href='/single-anime?parentId=#{id}')
                     p #{animeTitle}
             .meta
               time.published(datetime='#{lastModified}') Updated #{lastModified}
-          a.image.featured(href='#')
+          a.image.featured(href='/single-anime?parentId=#{id}')
             img(src='#{wallpaper}', alt='')
           p #{review}
           footer
             ul.actions
               li
-                a.button.big(href='/blog/coursehero') Continue Reading
+                a.button.big(href='/single-anime?parentId=#{id}') Continue Reading
             //ul.stats
             //  li
             //    a(href='#') General

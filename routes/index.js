@@ -341,6 +341,40 @@ router.post('/animeEpModify', function(req, res) {
   });
 });
 
+router.get('/single-anime', function(req, res) {
+
+  var parentID = req.query.parentId;
+
+  // if there's no parent id to grab all the anime
+  if(!parentID) {
+    res.render('error', {
+      title: "uh oh.",
+      reason: "You don't have permission to view this page!"
+    });
+  }
+
+  var condition  = ObjectID(req.query.parentId);
+  var parentAnime = {
+    'parentId' : req.query.parentId
+  };
+
+  variableQueries.getVariable('blogCategories', function(blogCategories) {
+    animequeries.filterAnime(condition, function(anime) {
+      animeEpQueries.filterAnimeEpisode(parentAnime, function(episodes) {
+        res.render('blogPosts/single', {
+          title           : anime[0]['title'] + " Review",
+          episodes        : episodes,
+          anime           : anime[0],
+          blogCategories  : Object.keys(blogCategories),
+          blogDescriptions: blogCategories
+        });
+      });
+    });
+  });
+
+});
+
+
 /* For submitting a message from the home page */
 router.post('/wallsubmit', function(req, res) {
 
