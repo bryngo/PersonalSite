@@ -8,7 +8,7 @@ header#header
       each blogCategory in blogCategories
         - var category = blogCategory;
         li
-          a(href='#') #{category}
+          a(href='/#{category}') #{category}
   nav.main
     ul
       li.search
@@ -32,6 +32,6 @@ section#menu
         - var description = blogDescriptions[category];
         - categoryIndex += 1;
         li
-          a(href='#')
+          a(href='/#{category}')
             h3 #{category}
             p #{description}

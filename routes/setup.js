@@ -72,13 +72,20 @@ var insertVariable = function(info, db, callback) {
 
   collection.find({}).toArray(function(err, docs) {
 
-    collection.updateOne(
-      docs[0],
-      {$set: info},
-      function(err, result) {
-        console.log("Updated results");
-        callback(result);
+    if(docs.length === 0) {
+      collection.insertOne(info, function(err, results) {
+        console.log("Fresh insert complete");
+        callback(results);
       });
+    } else {
+      collection.updateOne(
+        docs[0],
+        {$set: info},
+        function (err, result) {
+          console.log("Updated variables");
+          callback(result);
+        });
+    }
   });
 };
 
@@ -87,8 +94,6 @@ MongoClient.connect(url, function(err, client) {
 
     var db = client.db('Lightning');
 
-    var cat = 'blogCategories';
-
     var blogCategories = {
       "blogCategories":
         {'miscellaneous': 'misc updated',
@@ -96,7 +101,7 @@ MongoClient.connect(url, function(err, client) {
         'food': 'food description',
         'anime' : 'anime description',
         'movies' : 'movie description',
-        'TV shows' : 'tv show description'}
+        'tv-shows' : 'tv show description'}
     };
 
     insertVariable(blogCategories, db, function(){
