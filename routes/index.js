@@ -346,7 +346,7 @@ router.post('/animeEpDelete', function(req, res) {
 router.post('/animeEpModify', function(req, res) {
 
   // no _id passed in for some reason
-  if(!req.body.episodeId || !isAdmin(req)) {
+  if(!req.body.episodeID || !isAdmin(req)) {
     res.render('error', {
       title: "uh oh.",
       reason: "Something went wrong, and I don't know why!"
