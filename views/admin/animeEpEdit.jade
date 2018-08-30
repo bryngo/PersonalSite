@@ -19,23 +19,26 @@ html
       .inner.medium
 
         // the literal object ID
-        // - var rawParentId = animeParent['_id'].valeOf();
+        - var formEpNumber = displayedAnimeEp['epNumber'] || '';
+        - var formEpRating = displayedAnimeEp['epRating'] || '';
+        - var formEpReview = displayedAnimeEp['epReview'] || '';
+        - var formEpID     = displayedAnimeEp['_id'] || '';
         h2 Anime Episode Post for #{animeParent['title']}
           form
             .field.half.first
               label(for='epNumber') Episode Number
-              input#epNumber(type='text', name='name', value='#{form_epNumber}')
+              input#epNumber(type='text', name='name', value='#{formEpNumber}')
             .field.half
               label(for='epRating') Episode Rating
-              input#epRating(type='text', name='rating', value='#{form_epRating}')
+              input#epRating(type='text', name='rating', value='#{formEpRating}')
             .field
               label(for='epReview') Episode Review
               p#charcount
-              textarea#epReview(name='review') #{form_epReview}
+              textarea#epReview(name='review') #{formEpReview}
             ul.actions
               li
                 //button#submit(type='submit', onclick="animeEpSubmit(\'#{rawParentId}\')" value='Post') Post
-                button#submit(type='submit', onclick="animeEpSubmit(\'#{parentId}\', \'#{episodeId}\')", value='Post') Post
+                button#submit(type='submit', onclick="animeEpSubmit(\'#{parentId}\', \'#{formEpID}\')", value='Post') Post
 
 
     section.wrapper.style1.align-center
@@ -55,13 +58,12 @@ html
                 - var epRating = ep['epRating'];
                 - var epReview = ep['epReview'];
                 - var epId     = ep['_id'];
-
                 tr
                   td #{epNumber}
                   td #{epRating}
                   td #{epReview}
                   td
                     button#animeDelete(type='submit', onclick="animeEpDelete(\'#{epId}\', \'#{parentId}\')", value='Post') Delete
-                    button#animeEdit(type='submit', onclick="animeEpModify(\'#{epId}\')", value='Post') Modify
+                    button#animeEdit(type='submit', onclick="animeEpModify(\'#{epId}\', \'#{parentId}\')", value='Post') Modify
 
 

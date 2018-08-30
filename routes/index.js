@@ -58,10 +58,6 @@ router.get('/anime', function(req, res, next) {
 
   animequeries.findAllAnime(function (animes) {
     variableQueries.getVariable('blogCategories', function (blogCategories) {
-
-      console.log(Object.keys(blogCategories));
-
-
       res.render('blogPosts/animeLanding', {
         title             : 'Anime Reviews',
         animeKey          : 'anime',
@@ -142,24 +138,36 @@ router.get('/logout', (req, res, next) => {
  */
 router.get('/animeEdit', (req, res, next) => {
 
-  if(!isAdmin(req)) {
-    res.render('error', {
-      title: "uh oh.",
-      reason: "You don't have permission to view this page!"
-    });
+  // if(!isAdmin(req)) {
+  //   res.render('error', {
+  //     title: "uh oh.",
+  //     reason: "You don't have permission to view this page!"
+  //   });
+  // }
+
+  var displayedAnimeID = req.query.animeID;
+
+  var condition = '';
+  if(displayedAnimeID) {
+    condition = {
+      '_id': ObjectID(displayedAnimeID)
+    };
+  } else {
+
+    // because we don't want to grab existing data if we didn't request it
+    condition = {
+      '_id': ObjectID(0)
+    };
   }
 
-  animequeries.findAllAnime(function(animes) {
-    res.render('admin/animeEdit', {
-      title           : 'Anime Edit',
-      animes          : animes,
-      user            : req.user,
-      form_title      : req.query.name || '',
-      form_rating     : req.query.rating || '',
-      form_fav_char   : req.query.fav_char || '',
-      form_review     : req.query.review || '',
-      form_id         : req.query._id || '',
-      form_wallpaper  : req.query.wallpaper || ''
+  animequeries.filterAnime(condition, function(displayedAnime){
+    animequeries.findAllAnime(function(animes) {
+      res.render('admin/animeEdit', {
+        title           : 'Anime Edit',
+        animes          : animes,
+        user            : req.user,
+        displayedAnime  : displayedAnime[0] || []
+      });
     });
   });
 });
@@ -170,20 +178,20 @@ router.post('/animesubmit', function(req, res) {
 
   // TODO: Implement the number of likes per blog post
   var info = {
-    'title'         : req.body.title,
-    'rating'        : req.body.rating,
-    'fav_char'      : req.body.fav_char,
-    'review'        : req.body.review,
+    'title'         : decodeURIComponent(req.body.title),
+    'rating'        : decodeURIComponent(req.body.rating),
+    'fav_char'      : decodeURIComponent(req.body.fav_char),
+    'review'        : decodeURIComponent(req.body.review),
     'last_modified' : today,
-    'wallpaper'     : req.body.wallpaper,
+    'wallpaper'     : decodeURIComponent(req.body.wallpaper),
     'blog_tags'     : ['anime'],
   };
 
   // if we're updating an existing entry
-  if(req.body._id) {
+  if(decodeURIComponent(req.body.animeID)) {
 
     let condition = {
-      '_id': ObjectID(req.body._id)
+      '_id': ObjectID(decodeURIComponent(req.body.animeID))
     };
 
     animequeries.updateOneAnime(condition, info);
@@ -199,7 +207,7 @@ router.post('/animesubmit', function(req, res) {
 
 router.post('/animedelete', function(req, res) {
 
-  if(!req.body._id) {
+  if(!req.body.animeID) {
     res.render('error', {
       title: "uh oh.",
       reason: "Something went wrong, and I don't know why!"
@@ -207,11 +215,11 @@ router.post('/animedelete', function(req, res) {
   }
 
   let condition = {
-    '_id': ObjectID(req.body._id)
+    '_id': ObjectID(req.body.animeID)
   };
 
   let parentCondition = {
-    'parentId' : req.body._id
+    'parentId' : req.body.animeID
   };
 
   animequeries.removeOneAnime(condition);
@@ -223,15 +231,15 @@ router.post('/animedelete', function(req, res) {
 
 router.post('/animemodify', function(req, res) {
 
-  // no _id passed in for some reason
-  if(!req.body._id) {
+  // no anime ID passed in for some reason
+  if(!req.body.animeID) {
     res.render('error', {
       title: "uh oh.",
       reason: "Something went wrong, and I don't know why!"
     });
   }
 
-  let condition = ObjectID(req.body._id);
+  let condition = ObjectID(req.body.animeID);
 
   animequeries.filterAnime(condition, function(anime) {
       res.end(JSON.stringify(anime));
@@ -244,29 +252,41 @@ router.post('/animemodify', function(req, res) {
  */
 router.get('/animeEpEdit', function(req, res) {
 
-  if(!isAdmin(req)) {
-    res.render('error', {
-      title: "uh oh.",
-      reason: "You don't have permission to view this page!"
-    });
-  }
+  // if(!isAdmin(req)) {
+  //   res.render('error', {
+  //     title: "uh oh.",
+  //     reason: "You don't have permission to view this page!"
+  //   });
+  // }
 
-  let condition = ObjectID(req.query.parentId);
+  let condition = ObjectID(req.query.parentID);
   let parentAnime = {
-    'parentId' : req.query.parentId
+    'parentId' : req.query.parentID
   };
 
-  animequeries.filterAnime(condition, function(anime) {
-    animeEpQueries.filterAnimeEpisode(parentAnime, function(episodes) {
-        res.render('admin/animeEpEdit', {
-        title         : 'Anime Episode Edit',
-        animeParent   : anime[0],
-        parentId      : req.query.parentId,
-        episodeId     : req.query.episodeId || '',
-        form_epNumber : req.query.epNumber || '',
-        form_epRating : req.query.epRating || '',
-        form_epReview : req.query.epReview || '',
-        episodes      : episodes,
+  var displayedAnimeEpID = req.query.episodeID;
+  var displayedAnimeCond = '';
+  if(displayedAnimeEpID) {
+    displayedAnimeCond = {
+      '_id': ObjectID(displayedAnimeEpID)
+    };
+  } else {
+    // because we don't want to grab existing data if we didn't request it
+    displayedAnimeCond = {
+      '_id': ObjectID(0)
+    };
+  }
+
+  animeEpQueries.filterAnimeEpisode(displayedAnimeCond, function (displayedAnimeEp) {
+    animequeries.filterAnime(condition, function(anime) {
+      animeEpQueries.filterAnimeEpisode(parentAnime, function(episodes) {
+          res.render('admin/animeEpEdit', {
+          title             : 'Anime Episode Edit',
+          animeParent       : anime[0],
+          parentId          : req.query.parentID,
+          episodes          : episodes,
+          displayedAnimeEp  : displayedAnimeEp[0] || []
+        });
       });
     });
   });
@@ -280,18 +300,18 @@ router.post('/animeEpSubmit', function(req, res) {
   var today = getTodayDate();
 
   var info = {
-    'epNumber'      : parseInt(req.body.epNumber),
-    'epRating'      : req.body.epRating,
-    'epReview'      : req.body.epReview,
-    'parentId'      : req.body.parentId,
+    'epNumber'      : parseInt(decodeURIComponent(req.body.epNumber)),
+    'epRating'      : decodeURIComponent(req.body.epRating),
+    'epReview'      : decodeURIComponent(req.body.epReview),
+    'parentId'      : decodeURIComponent(req.body.parentID),
     'last_modified' : today
   };
 
   // if we're updating an existing entry
-  if(req.body.episodeId) {
+  if(decodeURIComponent(req.body.episodeID)) {
 
     let condition = {
-      '_id': ObjectID(req.body.episodeId)
+      '_id': ObjectID(decodeURIComponent(req.body.episodeID))
     };
 
     animeEpQueries.updateOneAnimeEpisode(condition, info);
@@ -300,13 +320,12 @@ router.post('/animeEpSubmit', function(req, res) {
     animeEpQueries.insertAnimeEpisode(info);
 
   }
-
   res.end('Anime Episode Successfully uploaded to db');
 });
 
 router.post('/animeEpDelete', function(req, res) {
 
-  if(!req.body.episodeId) {
+  if(!req.body.episodeID) {
     res.render('error', {
       title: "uh oh.",
       reason: "Something went wrong, and I don't know why!"
@@ -314,7 +333,7 @@ router.post('/animeEpDelete', function(req, res) {
   }
 
   let condition = {
-    '_id': ObjectID(req.body.episodeId)
+    '_id': ObjectID(req.body.episodeID)
   };
 
 
@@ -327,14 +346,14 @@ router.post('/animeEpDelete', function(req, res) {
 router.post('/animeEpModify', function(req, res) {
 
   // no _id passed in for some reason
-  if(!req.body.episodeId || !isAdmin(req)) {
-    res.render('error', {
-      title: "uh oh.",
-      reason: "Something went wrong, and I don't know why!"
-    });
-  }
+  // if(!req.body.episodeId || !isAdmin(req)) {
+  //   res.render('error', {
+  //     title: "uh oh.",
+  //     reason: "Something went wrong, and I don't know why!"
+  //   });
+  // }
 
-  let condition = ObjectID(req.body.episodeId);
+  let condition = ObjectID(req.body.episodeID);
 
   animeEpQueries.filterAnimeEpisode(condition, function(animeEp) {
     res.end(JSON.stringify(animeEp));
@@ -343,7 +362,7 @@ router.post('/animeEpModify', function(req, res) {
 
 router.get('/single-anime', function(req, res) {
 
-  var parentID = req.query.parentId;
+  var parentID = req.query.parentID;
 
   // if there's no parent id to grab all the anime
   if(!parentID) {
@@ -353,9 +372,9 @@ router.get('/single-anime', function(req, res) {
     });
   }
 
-  var condition  = ObjectID(req.query.parentId);
+  var condition  = ObjectID(req.query.parentID);
   var parentAnime = {
-    'parentId' : req.query.parentId
+    'parentId' : req.query.parentID
   };
 
   variableQueries.getVariable('blogCategories', function(blogCategories) {

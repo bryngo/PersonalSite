@@ -10,33 +10,26 @@ function animeSubmit(anime_id) {
   var review = $('#review').val().trim();
   var wallpaper = $('#wallpaper').val().trim();
 
-
   // make sure all the fields are fields are filled out
   if (title != '' && rating != '' && fav_char != '' && review != '' && wallpaper != '') {
 
-    // call the submit function
-    $.ajax({
-      type: "POST",
-      url: '/animesubmit',
-      data: {
-        'title'   : title,
-        'rating'  : rating,
-        'fav_char': fav_char,
-        'review'  : review,
-        '_id'     : anime_id,
-        'wallpaper': wallpaper
+    $.post('/animesubmit',
+      {
+        'title'    : encodeURIComponent(title),
+        'rating'   : encodeURIComponent(rating),
+        'fav_char' : encodeURIComponent(fav_char),
+        'review'   : encodeURIComponent(review),
+        'animeID'  : encodeURIComponent(anime_id),
+        'wallpaper': encodeURIComponent(wallpaper)
       },
-      success: function (resp) {
-        $('#name').val('');
-        $('#rating').val('');
-        $('#fav_char').val('');
-        $('#review').val('');
-        $('#wallpaper').val('');
+      function(returnedData){
+        console.log(returnedData);
         window.location = '/animeEdit';
-      }
+
+      }).fail(function(){
+      console.log("Error while submitting anime");
     });
-  }
-  else {
+  } else {
     alert("Whoops, looks like you missed a field!");
   }
 }
@@ -47,19 +40,15 @@ function animeSubmit(anime_id) {
  */
 function animeDelete(anime_id) {
 
-  $.ajax({
-    type: "POST",
-    url: '/animedelete',
-    data: {
-      '_id': anime_id
+  $.post('/animedelete',
+    {
+      'animeID': anime_id
     },
-    success: function(resp) {
-
+    function(returnedData){
       window.location = '/animeEdit';
-    }
+    }).fail(function(){
+    console.log("Error while deleting anime");
   });
-
-  console.log("DELETING: " + anime_id);
 }
 
 /**
@@ -68,13 +57,11 @@ function animeDelete(anime_id) {
  */
 function animeModify(anime_id) {
 
-  $.ajax({
-    type: "POST",
-    url: '/animemodify',
-    data: {
-      '_id': anime_id
+  $.post('/animemodify',
+    {
+      'animeID': anime_id
     },
-    success: function(resp) {
+    function(resp){
 
       var jsonResp = JSON.parse(resp);
 
@@ -84,18 +71,11 @@ function animeModify(anime_id) {
       $('#review').val('');
       $('#wallpaper').val('');
 
-      window.location = '/animeEdit?name=' + jsonResp[0].title +
-        '&rating=' + jsonResp[0].rating +
-        '&fav_char=' + jsonResp[0].fav_char +
-        '&review=' + jsonResp[0].review +
-        '&_id=' + jsonResp[0]._id +
-        '&wallpaper=' + jsonResp[0].wallpaper;
-    }
+      window.location = '/animeEdit?animeID=' + jsonResp[0]._id;
 
+    }).fail(function(){
+    console.log("Error while modifying anime");
   });
-
-  console.log("Modifying: " + anime_id);
-
 }
 
 /**
@@ -104,9 +84,7 @@ function animeModify(anime_id) {
  */
 function animeEpSubmitRedirect(anime_id) {
 
-  sessionStorage.setItem('parentId', anime_id);
-
-  window.location = '/animeEpEdit?parentId=' + anime_id;
+  window.location = '/animeEpEdit?parentID=' + anime_id;
 
 } // called from the animeEdit page, redirects user to animeEpEdit page
 
@@ -121,29 +99,28 @@ function animeEpSubmit(parentId, episodeId) {
   var epReview = $('#epReview').val().trim();
 
   // make sure all the fields are filled out
-  if(epNumber != '' && epRating != '' && epReview != '') {
+  if (epNumber != '' && epRating != '' && epReview != '') {
 
-    // submit the episode data to the appropriate anime
-    $.ajax({
-      type: "POST",
-      url: '/animeEpSubmit',
-      data: {
-        'epNumber' : epNumber,
-        'epRating' : epRating,
-        'epReview' : epReview,
-        'parentId' : parentId,
-        'episodeId': episodeId
+    $.post('/animeEpSubmit',
+      {
+        'epNumber': encodeURIComponent(epNumber),
+        'epRating': encodeURIComponent(epRating),
+        'epReview': encodeURIComponent(epReview),
+        'parentID': encodeURIComponent(parentId),
+        'episodeID': encodeURIComponent(episodeId)
       },
-      success: function (resp) {
+      function (resp) {
+
         $('#epNumber').val('');
         $('#epRating').val('');
         $('#epReview').val('');
 
-        window.location = '/animeEpEdit?parentId=' + parentId;
-      }
+        window.location = '/animeEpEdit?parentID=' + parentId;
+
+      }).fail(function () {
+      console.log("Error while submitting anime episode");
     });
   }
-
 }
 
 /**
@@ -152,52 +129,38 @@ function animeEpSubmit(parentId, episodeId) {
  */
 function animeEpDelete(animeEpId, parentId) {
 
-  $.ajax({
-    type: "POST",
-    url: '/animeEpDelete',
-    data: {
-      'episodeId': animeEpId
+
+  $.post('/animeEpDelete',
+    {
+      'episodeID': animeEpId
     },
-    success: function(resp) {
-
-      window.location = '/animeEpEdit?parentId=' + parentId;
-    }
+    function(returnedData){
+      window.location = '/animeEpEdit?parentID=' + parentId;
+    }).fail(function(){
+    console.log("Error while deleting anime episode");
   });
-
-  console.log("DELETING: " + animeEpId);
-
 }
 
 /**
  *
  * @param ObjectId animeEpId
  */
-function animeEpModify(animeEpId) {
+function animeEpModify(animeEpID, parentID) {
 
-  $.ajax({
-    type: "POST",
-    url: '/animeEpModify',
-    data: {
-      'episodeId': animeEpId
+  $.post('/animeEpModify',
+    {
+      'episodeID': animeEpID,
+      'parentID' : parentID
     },
-    success: function(resp) {
-
+    function(resp){
       var jsonResp = JSON.parse(resp);
 
       $('#epNumber').val('');
       $('#epRating').val('');
       $('#epReview').val('');
 
-      window.location = '/animeEpEdit?parentId=' + sessionStorage.getItem('parentId') +
-        '&epNumber='  + jsonResp[0].epNumber +
-        '&epRating='  + jsonResp[0].epRating +
-        '&epReview='  + jsonResp[0].epReview +
-        '&episodeId=' + jsonResp[0]._id;
-    }
-
+      window.location = '/animeEpEdit?parentID=' + parentID + '&episodeID=' + jsonResp[0]._id;
+    }).fail(function(){
+    console.log("Error while deleting anime episode");
   });
-
-  console.log("Modifying anime episode: " + animeEpId);
-
-
 }

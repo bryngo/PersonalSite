@@ -18,26 +18,33 @@ html
     section.wrapper.style1.align-center
       .inner.medium
         h2 Anime Post
+
+           - var formName = displayedAnime['title'] || '';
+           - var formRating = displayedAnime['rating'] || '';
+           - var formFavChar = displayedAnime['fav_char'] || '';
+           - var formWallpaper = displayedAnime['wallpaper'] || '';
+           - var formReview = displayedAnime['review'] || '';
+           - var animeID = displayedAnime['_id'] || '';
           form
             .field.half.first
               label(for='name') Anime Title
-              input#name(type='text', name='name', value='#{form_title}')
+              input#name(type='text', name='name', value='#{formName}')
             .field.half
               label(for='rating') Rating
-              input#rating(type='text', name='rating', value='#{form_rating}')
+              input#rating(type='text', name='rating', value='#{formRating}')
             .field.half.first
               label(for='fav_char') Favorite Character
-              input#fav_char(type='text', name='rating', value='#{form_fav_char}')
+              input#fav_char(type='text', name='fav_char', value='#{formFavChar}')
             .field.half.first
               label(for='wallpaper') Wallpaper
-              input#wallpaper(type='text', name='wallpaper', value='#{form_wallpaper}')
+              input#wallpaper(type='text', name='wallpaper', value='#{formWallpaper}')
             .field
               label(for='review') Review
               p#charcount
-              textarea#review(name='review') #{form_review}
+              textarea#review(name='review') #{formReview}
             ul.actions
               li
-                button#submit(type='submit', onclick="animeSubmit(\'#{form_id}\')", value='Post') Post
+                button#submit(type='submit', onclick="animeSubmit(\'#{animeID}\')", value='Post') Post
 
     section.wrapper.style1.align-center
       .inner.medium
