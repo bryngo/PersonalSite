@@ -368,7 +368,7 @@ router.get('/single-anime', function(req, res) {
   if(!parentID) {
     res.render('error', {
       title: "uh oh.",
-      reason: "You don't have permission to view this page!"
+      reason: "Something went wrong, and I don't know why!"
     });
   }
 

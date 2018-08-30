@@ -28,17 +28,17 @@ html
           header
             .title
               h2
-                a(href='/single-anime?parentId=#{id}')
+                a(href='/single-anime?parentID=#{id}')
                     p #{animeTitle}
             .meta
               time.published(datetime='#{lastModified}') Updated #{lastModified}
-          a.image.featured(href='/single-anime?parentId=#{id}')
+          a.image.featured(href='/single-anime?parentID=#{id}')
             img(src='#{wallpaper}', alt='')
           p #{review}
           footer
             ul.actions
               li
-                a.button.big(href='/single-anime?parentId=#{id}') Continue Reading
+                a.button.big(href='/single-anime?parentID=#{id}') Continue Reading
             //ul.stats
             //  li
             //    a(href='#') General
