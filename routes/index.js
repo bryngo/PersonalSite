@@ -138,12 +138,12 @@ router.get('/logout', (req, res, next) => {
  */
 router.get('/animeEdit', (req, res, next) => {
 
-  // if(!isAdmin(req)) {
-  //   res.render('error', {
-  //     title: "uh oh.",
-  //     reason: "You don't have permission to view this page!"
-  //   });
-  // }
+  if(!isAdmin(req)) {
+    res.render('error', {
+      title: "uh oh.",
+      reason: "You don't have permission to view this page!"
+    });
+  }
 
   var displayedAnimeID = req.query.animeID;
 
@@ -252,12 +252,12 @@ router.post('/animemodify', function(req, res) {
  */
 router.get('/animeEpEdit', function(req, res) {
 
-  // if(!isAdmin(req)) {
-  //   res.render('error', {
-  //     title: "uh oh.",
-  //     reason: "You don't have permission to view this page!"
-  //   });
-  // }
+  if(!isAdmin(req)) {
+    res.render('error', {
+      title: "uh oh.",
+      reason: "You don't have permission to view this page!"
+    });
+  }
 
   let condition = ObjectID(req.query.parentID);
   let parentAnime = {
@@ -345,13 +345,13 @@ router.post('/animeEpDelete', function(req, res) {
 
 router.post('/animeEpModify', function(req, res) {
 
-  // no _id passed in for some reason
-  // if(!req.body.episodeId || !isAdmin(req)) {
-  //   res.render('error', {
-  //     title: "uh oh.",
-  //     reason: "Something went wrong, and I don't know why!"
-  //   });
-  // }
+  no _id passed in for some reason
+  if(!req.body.episodeId || !isAdmin(req)) {
+    res.render('error', {
+      title: "uh oh.",
+      reason: "Something went wrong, and I don't know why!"
+    });
+  }
 
   let condition = ObjectID(req.body.episodeID);
 
