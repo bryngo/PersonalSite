@@ -75,7 +75,7 @@ var findAllAnime = function(db, callback) {
 
     var collection = db.collection('anime');
 
-    collection.find({}).toArray(function(err, docs) {
+    collection.find({}).sort({last_modified_UTC: -1}).toArray(function(err, docs) {
         assert.equal(err, null);
 
 

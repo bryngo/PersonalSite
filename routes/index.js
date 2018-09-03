@@ -4,7 +4,7 @@ var fs = require('fs');
 var multer = require('multer');
 var mime = require('mime');
 var ObjectID = require('mongodb').ObjectID;
-
+var dateFormat = require('dateformat');
 
 const passport = require('passport');
 const Account = require('../models/account');
@@ -175,16 +175,18 @@ router.get('/animeEdit', (req, res, next) => {
 router.post('/animesubmit', function(req, res) {
 
   var today = getTodayDate();
+  var dateUTC = dateFormat(new Date(), 'isoUtcDateTime');
 
   // TODO: Implement the number of likes per blog post
   var info = {
-    'title'         : decodeURIComponent(req.body.title),
-    'rating'        : decodeURIComponent(req.body.rating),
-    'fav_char'      : decodeURIComponent(req.body.fav_char),
-    'review'        : decodeURIComponent(req.body.review),
-    'last_modified' : today,
-    'wallpaper'     : decodeURIComponent(req.body.wallpaper),
-    'blog_tags'     : ['anime'],
+    'title'             : decodeURIComponent(req.body.title),
+    'rating'            : decodeURIComponent(req.body.rating),
+    'fav_char'          : decodeURIComponent(req.body.fav_char),
+    'review'            : decodeURIComponent(req.body.review),
+    'last_modified'     : today,
+    'last_modified_UTC' : dateUTC,
+    'wallpaper'         : decodeURIComponent(req.body.wallpaper),
+    'blog_tags'         : ['anime'],
   };
 
   // if we're updating an existing entry
