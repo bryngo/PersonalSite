@@ -20,12 +20,17 @@ through Google Sheets (which I hate navigating to).
     - Each entry will be of the form 
 ```JSON
 {
-  name: <STRING>
-  month: <INT>
-  daysLate: <INT>
-  paid: <BOOL>
+  name: "Alice",
+  month: 0,
+  daysLate: 2,
+  paid: false
 }
 ```
+  - `name`: STRING
+  - `month`: INT (with values 0-11)
+  - `datsLate`: INT
+  - `paid`: BOOL
+
 2) Set up a cron that populates `apple_pay_records` with X entries for month Y
 at the beginning of each month.
 Each entry will correspond to a user. For now, there won't be any entries
