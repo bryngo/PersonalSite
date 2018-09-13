@@ -132,6 +132,19 @@ router.get('/logout', (req, res, next) => {
   });
 });
 
+
+router.get('/photos', function(req, res, next) {
+
+  variableQueries.getVariable('blogCategories', function(result) {
+
+    res.render('photography', {
+      title: 'Photography'
+    });
+  });
+});
+
+
+
 /**
  * @route: /animeEdit
  * @requires: permissions: 1
@@ -395,7 +408,6 @@ router.get('/single-anime', function(req, res) {
 
 });
 
-
 /* For submitting a message from the home page */
 router.post('/wallsubmit', function(req, res) {
 
@@ -412,6 +424,7 @@ router.post('/wallsubmit', function(req, res) {
     res.end("Wall post successfully submitted into database.");
 
 }); /// TODO: email myself wall posts for review
+
 
 /* catches all error pages */
 router.get('*', (req, res, next) => {
