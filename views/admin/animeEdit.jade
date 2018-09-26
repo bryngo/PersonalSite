@@ -65,6 +65,7 @@ html
                 - var rating = anime['rating'];
                 - var fav_char = anime['fav_char'];
                 - var review = anime['review'];
+                - if (review.length > 50) review = review.substr(0, 50) + '...';
                 - var id = anime['_id'];
                 - var wallpaper = anime['wallpaper'];
                 tr
