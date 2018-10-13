@@ -1,6 +1,21 @@
 # My Personal Website
 
 [![Build Status](https://travis-ci.org/bryngo/PersonalSite.svg?branch=master)](https://travis-ci.org/bryngo/PersonalSite)
+
+## Running Locally
+This source code assumes a couple things
+- You have a mongo database named `Lightning`
+  - To get this set up, run `use Lightning` from the mongo CLI
+- You have the followings collections in mongo
+  - `accounts`
+  - `anime`
+  - `anime_ep`
+  - `chest`
+  - `vairables`
+  - `wallposts`
+
+Each of the collections can be created by typing `db.createCollection({'NAME'})`. Be sure you are using the `Lightning` database. 
+
 ## Tech Stack
 ### Client Side
     - HTML/CSS/JS
