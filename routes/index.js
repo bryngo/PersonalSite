@@ -6,6 +6,11 @@ var mime = require('mime');
 var ObjectID = require('mongodb').ObjectID;
 var dateFormat = require('dateformat');
 
+// HTML to md or md to HTML
+var showdown = require('showdown');
+var converter = new showdown.Converter();
+var html2jade = require('html2jade');
+
 const passport = require('passport');
 const Account = require('../models/account');
 
@@ -58,6 +63,16 @@ router.get('/anime', function(req, res, next) {
 
   animequeries.findAllAnime(function (animes) {
     variableQueries.getVariable('blogCategories', function (blogCategories) {
+
+      // this can be optimized later. Instead of formatting the input here, maybe
+      // store the formatted description in the collection
+
+      animes.forEach(function(anime) {
+
+        anime.review = converter.makeHtml(anime.review);
+
+      });
+
       res.render('blogPosts/animeLanding', {
         title             : 'Anime Reviews',
         animeKey          : 'anime',
