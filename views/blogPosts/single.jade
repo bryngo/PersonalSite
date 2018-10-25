@@ -29,12 +29,12 @@ html
           span.image.featured
             img(src='#{imgSrc}', alt='')
           - var review = anime['review'];
-          p #{review}
+          !{review}
           each episode in episodes
             hr
             h3 Episode #{episode['epNumber']}
             h5 Rating: #{episode['epRating']} / 10
-            p #{episode['epReview']}
+            !{episode['epReview']}
       // Footer
       include blog_footer
       // Scripts

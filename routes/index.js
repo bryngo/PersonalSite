@@ -410,6 +410,14 @@ router.get('/single-anime', function(req, res) {
   variableQueries.getVariable('blogCategories', function(blogCategories) {
     animequeries.filterAnime(condition, function(anime) {
       animeEpQueries.filterAnimeEpisode(parentAnime, function(episodes) {
+
+
+        anime.review = converter.makeHtml(anime.review);
+
+        episodes.forEach(function(ep) {
+          ep.epReview = converter.makeHtml(ep.epReview);
+        });
+
         res.render('blogPosts/single', {
           title           : anime[0]['title'] + " Review",
           episodes        : episodes,
