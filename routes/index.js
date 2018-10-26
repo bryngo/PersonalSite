@@ -69,7 +69,7 @@ router.get('/anime', function(req, res, next) {
 
       animes.forEach(function(anime) {
 
-        anime.review = converter.makeHtml(anime.review);
+        anime.review = converter.makeHtml(anime.review.substr(0, 250) + '...');
 
       });
 
