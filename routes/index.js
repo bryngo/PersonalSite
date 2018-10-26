@@ -8,7 +8,8 @@ var dateFormat = require('dateformat');
 
 // HTML to md or md to HTML
 var showdown = require('showdown');
-var converter = new showdown.Converter();
+var converter = new showdown.Converter({strikethrough: true});
+
 var html2jade = require('html2jade');
 
 const passport = require('passport');
@@ -147,7 +148,6 @@ router.get('/logout', (req, res, next) => {
   });
 });
 
-
 router.get('/photos', function(req, res, next) {
 
   variableQueries.getVariable('blogCategories', function(result) {
@@ -157,8 +157,6 @@ router.get('/photos', function(req, res, next) {
     });
   });
 });
-
-
 
 /**
  * @route: /animeEdit
@@ -412,7 +410,7 @@ router.get('/single-anime', function(req, res) {
       animeEpQueries.filterAnimeEpisode(parentAnime, function(episodes) {
 
 
-        anime.review = converter.makeHtml(anime.review);
+        anime[0].review = converter.makeHtml(anime[0].review);
 
         episodes.forEach(function(ep) {
           ep.epReview = converter.makeHtml(ep.epReview);
