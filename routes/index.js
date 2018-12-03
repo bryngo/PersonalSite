@@ -5,6 +5,8 @@ var multer = require('multer');
 var mime = require('mime');
 var ObjectID = require('mongodb').ObjectID;
 var dateFormat = require('dateformat');
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 // HTML to md or md to HTML
 var showdown = require('showdown');
@@ -21,6 +23,13 @@ var wallpostqueries = require('./wallpostqueries');
 var animequeries = require('./animeQueries');
 var animeEpQueries = require('./animeEpQueries');
 var variableQueries = require('./variablesQueries');
+
+// schema for storing images
+var Item = new Schema({
+    img: { data: Buffer, contentType: String }
+});
+
+var PhotoSchema = mongoose.model('PhotoSchema', Item);
 
 /**
  * @route: /
@@ -428,6 +437,26 @@ router.get('/single-anime', function(req, res) {
   });
 
 });
+
+
+/**
+ * @route: /photosEdit
+ * @requires: permission: 1
+ */
+router.get('/photosEdit', (req, res, next) => {
+
+  // if(!isAdmin(req)) {
+  //   res.render('error', {
+  //     title: "uh oh.",
+  //     reason: "You don't have permission to view this page!"
+  //   });
+  // }
+
+  res.render('admin/photosEdit', {
+    title : 'Photos Edit'
+  });
+});
+
 
 /* For submitting a message from the home page */
 router.post('/wallsubmit', function(req, res) {

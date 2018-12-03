@@ -1,0 +1,77 @@
+doctype html
+//
+  Story by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+html
+  head
+    title #{title}
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='css/main.css')
+    script(src='js/animeEdit.js', type="text/javascript")
+    script(src='js/jquery.min.js')
+
+
+  body
+    // Seven
+    section.wrapper.style1.align-center
+      .inner.medium
+        h2 Photo Post
+
+           - var formCaption = '';
+           - var formDescription = '';
+           - var pictureID = '';
+
+          form
+            .field.half.first
+              label(for='caption') Caption
+              input#caption(type='text', name='caption', value='#{formCaption}')
+            .field.half.first
+              label(for='description') Description
+              input#description(type='text', name='description', value='#{formDescription}')
+            .field.half.first
+              input#copy(type='checkbox', name='copy')
+              label(for='copy') Email me a copy of this message
+            .field.half
+              input#human(type='checkbox', name='human', checked='')
+              label(for='human') I am a human and not a robot
+            ul.actions
+              li
+                button#submit(type='submit', onclick="animeSubmit(\'#{pictureID}\')", value='Post') Post
+    //section.wrapper.style1.align-center
+      .inner.medium
+        h2 Anime Titles
+        div.table-wrapper
+          table.alt
+            thead
+              tr
+                th Title
+                th Rating
+                th Favorite Character
+                th Review
+                td Wallpaper Path
+                th Modify
+            tbody
+              each anime in animes
+                - var anime_title = anime['title'];
+                - var rating = anime['rating'];
+                - var fav_char = anime['fav_char'];
+                - var review = anime['review'];
+                - if (review.length > 50) review = review.substr(0, 50) + '...';
+                - var id = anime['_id'];
+                - var wallpaper = anime['wallpaper'];
+                tr
+                  td #{anime_title}
+                  td #{rating}
+                  td #{fav_char}
+                  td #{review}
+                  td #{wallpaper}
+                    img(src='#{wallpaper}', alt='')
+
+                  td
+                    button#animeDelete(type='submit', onclick="animeDelete(\'#{id}\')", value='Post') Delete
+                    button#animeEdit(type='submit', target='_blank', onclick="animeModify(\'#{id}\')", value='Post') Modify
+                    button#animeAddEp(type='submit', onclick="animeEpSubmitRedirect(\'#{id}\')", value='Get') Add Episode
+
+
